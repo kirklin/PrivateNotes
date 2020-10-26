@@ -658,6 +658,49 @@ for(;;){
 
 }
 ```
+#### break 和 continue 语句
+
+break 语句用于跳出循环。
+
+continue 用于跳过循环中的一个迭代。
+
+#### 标签
+
+break 和 continue 语句仅仅是能够跳出代码块的语句。
+
+语法:
+
+```javascript
+label:
+		statements
+		break labelname;  
+		continue labelname;
+```
+
+**continue 语句（带有或不带标签引用）只能用在循环中。**
+
+**break 语句（不带标签引用），只能用在循环或 switch 中。**
+
+通过标签引用，break 语句可用于跳出任何 JavaScript 代码块：
+
+```javascript
+cars=["BMW","Volvo","Saab","Ford"];
+list: 
+{
+    document.write(cars[0] + "<br>"); 
+    document.write(cars[1] + "<br>"); 
+    document.write(cars[2] + "<br>"); 
+    break list;
+    document.write(cars[3] + "<br>"); 
+    document.write(cars[4] + "<br>"); 
+    document.write(cars[5] + "<br>"); 
+}
+```
+
+
+
+
+
 # 四、 对象（Object）  
 
 对象是JS中的引用数据类型  
@@ -668,13 +711,13 @@ for(;;){
 
 #### 1.内建对象  
 
-​	- 由ES标准中定义的对象，在任何的ES的实现中都可以使用  
-​	- 比如：Math String Number Boolean Function Object....  
+	- 由ES标准中定义的对象，在任何的ES的实现中都可以使用  
+	- 比如：Math String Number Boolean Function Object....  
 
 #### 2.宿主对象  
 
-​	- 由JS的运行环境提供的对象，目前来讲主要指由浏览器提供的对象  
-​	- 比如 BOM DOM  
+	- 由JS的运行环境提供的对象，目前来讲主要指由浏览器提供的对象  
+	- 比如 BOM DOM  
 
 #### 3.自定义对象  
 
@@ -707,6 +750,7 @@ for(;;){
 
 **删除对象中的属性**  
  语法：  
+
 ```javascript
 delete 对象.属性名  
 delete 对象["属性名"]  
