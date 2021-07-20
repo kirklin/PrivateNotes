@@ -1,0 +1,6 @@
+site_name: Kirk Lin的个人学习笔记
+theme: 
+  name: material
+  language: zh
+  features:
+    - navigation.indexes
