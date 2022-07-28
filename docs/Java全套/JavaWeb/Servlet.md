@@ -139,8 +139,6 @@ System.out.println("Hello = " + World);
 request.getRequestDispatcher("转发的目标资源地址").forward(request, response);
 ```
 
-1
-
 这个地址是服务器解析的，所以开头的斜杠代表Web应用根目录
 
 #### 设置请求字符集
