@@ -18,9 +18,13 @@
 
 #### [1.2 Linux](./Java全套/Linux-note/Linux笔记导航.md)
 
-### 2. Java与数据库交互
+### 2. 数据库关键技术
 
-#### [2.1 JDBC核心技术](./Java全套/JDBC核心技术/JDBC核心技术.md)
+#### [2.1 MySQL基础篇笔记](./Java全套/MySQL/MySQL基础篇笔记/index.md)
+
+#### [2.2 MySQL高级笔记](./Java全套/MySQL/MySQL高级篇笔记/index.md)
+
+#### [2.3 JDBC核心技术](./Java全套/JDBC核心技术/JDBC核心技术.md)
 
 ### 3. JavaWeb前后端交互
 
