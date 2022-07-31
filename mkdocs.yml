@@ -1,6 +1,27 @@
 site_name: Kirk Lin的个人学习笔记
-theme: 
+extra_css:
+  - CustomTheme/css/main.css
+extra_javascript:
+  - CustomTheme/js/main.js
+theme:
   name: material
+  custom_dir: overrides
   language: zh
   features:
     - navigation.indexes
+  palette:
+    # Palette toggle for dark mode
+    - scheme: slate
+      primary: black
+      accent: light green
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
+    # Palette toggle for light mode
+    - scheme: default
+      primary: black
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+
+
