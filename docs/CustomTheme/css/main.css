@@ -2,3 +2,11 @@
     --md-text-font: "Helvetica Neue", "Helvetica", "Arial", "Microsoft Yahei", "Hiragino Sans GB", "Heiti SC", "WenQuanYi Micro Hei", "sans-serif";
     /*--md-code-font: "";*/
 }
+[data-md-color-primary=black] .md-header {
+    background-color: #000;
+    opacity: 0.9 !important;
+}
+[data-md-color-primary=black] .md-tabs {
+    background-color: #000;
+    opacity: 0.9 !important;
+}
