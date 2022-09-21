@@ -17,13 +17,13 @@
 
 - 不同的数据库生产厂商都支持SQL语句，但都有特有内容。
 
-<img src="images/SQLisputonghua.jpg" alt="SQLisputonghua" style="zoom:67%;" />
+![SQLisputonghua.jpg](images/SQLisputonghua.jpg)
 
 ### 1.2 SQL语言排行榜
 
 自从 SQL 加入了 TIOBE 编程语言排行榜，就一直保持在 Top 10。
 
-<img src="images/image-20211014230114639.png" alt="image-20211014230114639" style="zoom:80%;" />
+![image-20211014230114639](images/image-20211014230114639.png)
 
 ### 1.3 SQL 分类
 
