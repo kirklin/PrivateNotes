@@ -31,3 +31,16 @@
 <br><br>
 [点击进入本地文档(本地Clone项目后可使用这个)](./docs/index.md)
 
+# Git提交规范
+
+- build : 改变了build工具 如 webpack
+- ci : 持续集成新增
+- chore : 构建过程或辅助工具的变动
+- feat : 新功能
+- docs : 文档改变
+- fix : 修复bug
+- perf : 性能优化
+- refactor : 某个已有功能重构
+- revert : 撤销上一次的 commit
+- style : 代码格式改变
+- test : 增加测试
