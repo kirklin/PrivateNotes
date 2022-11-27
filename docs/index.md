@@ -50,7 +50,7 @@
 
 #### 4.5 Maven
 
-#### 4.6 Gradle
+#### [4.6 Gradle](./Java全套/Gradle/index.md)
 
 #### 4.7 Redis
 
