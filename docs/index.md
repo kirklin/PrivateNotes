@@ -38,7 +38,7 @@
 
 #### [3.5 Listener](./Java全套/JavaWeb/Listener.md)
 
-### 4. JavaEE必备框架
+### 4. 开发常用框架&技术
 
 #### 4.1 Spring
 
@@ -46,17 +46,51 @@
 
 #### 4.3 MyBatis
 
-#### 4.4 Redis
+#### 4.4 MyBatis Plus
+
+#### 4.5 Maven
+
+#### 4.6 Gradle
+
+#### 4.7 Redis
+
+#### 4.8 SSM整合
+
+#### 4.9 Spring Boot
 
 ### 5. 常用工具与环境
 
-### 6. JavaEE高级
+#### 5.1 Git与GitHub
 
-### 7. 互联网架构新技术
+#### 5.2 Nginx
 
-### 8. 编码规范
+#### 5.3 Docker
 
-#### [8.1代码风格规范](./Java全套/编码规范/代码风格规范.md)
+### 6. Java 高级
+
+#### 6.1 Mycat
+
+#### 6.2 RabbitMQ
+
+#### 6.3 Elasticsearch
+
+#### 6.4 Spring Cloud
+
+#### 6.5 Spring Cloud Alibaba
+
+#### 6.6 JVM/GC
+
+#### 6.7 JUC
+
+#### 6.8 Netty
+
+### 7. 编码内功
+
+#### [7.1代码风格规范](./Java全套/编码规范/代码风格规范.md)
+
+#### 7.2 设计模式
+
+#### 7.3 高可用高并发系统架构
 
 ## 三 、 前端笔记
 
@@ -68,19 +102,53 @@
 
 #### 2.2 JavaScript高级
 
-### 3. PC端整栈开发
+### 3. 前端工程化
 
-### 4. ES6+Node+工程化
+#### 4.1 ES6
 
-#### [4.1 Webpack入门](./前端全套/前端工程化/Webpack/Webpack入门.md)
+#### 4.2 Node.js & Express
+
+#### [4.3 Webpack入门](./前端全套/前端工程化/Webpack/Webpack入门.md)
+
+#### 4.4 TailWind CSS
+
+#### 4.5 Less
+
+#### 4.6 Axios
+
+#### 4.7 TypeScript
+
+#### 4.8 ESLint
 
 ### 5. React技术栈
 
+#### 5.1 React
+
+#### 5.2 React-Router
+
+#### 5.3 Emotion/Styled Components
+
+#### 5.4 Ant Design / MUI
+
 ### 6. Vue技术栈
+
+#### 6.1 Vue3
+
+#### 6.2 Vite
+
+#### 6.3 VueRouter
+
+#### 6.4 Pinia
 
 ### 7. 小程序
 
-### 8. 面试
+#### 7.1 微信小程序
+
+#### 7.2 Taro
+
+### 8. 前端高级
+
+#### 微前端
 
 ## 四 、 竞赛指南
 
