@@ -1,14 +1,14 @@
-# Gradle 快速入门
+# 第03章_Gradle快速入门.md
 
 ## Gradle 中的常用指令
 
-| 常用Gradle指令       | 作用                       |
-| -------------------- | :------------------------- |
-| gradle clean         | 清楚build目录              |
-| gradle classes       | 编译业务代码和配置文件     |
+| 常用Gradle指令           | 作用            |
+|----------------------|:--------------|
+| gradle clean         | 清楚build目录     |
+| gradle classes       | 编译业务代码和配置文件   |
 | gradle test          | 编译测试代码，生成测试报告 |
-| gradle build         | 构建项目                   |
-| gradle build -x test | 跳过测试，构建             |
+| gradle build         | 构建项目          |
+| gradle build -x test | 跳过测试，构建       |
 
 ## Gradle 项目目录结构
 
@@ -28,9 +28,9 @@ Gradle 项目默认目录结构和 Maven 项目的目录结构一致,都是基�
 
 ![image-20221127232148853](第03章_Gradle快速入门.assets/image-20221127232148853.png)
 
-### 修改maven 下载源
+## 修改maven 下载源
 
-Gradle 自带的Maven 源地址是国外的，该Maven 源在国内的访问速度是很慢的，除非使用了特别的手段。一般情况下，我们建议使用国内的第三方开放的Maven 源或企业内部自建Maven 源。
+Gradle 自带的Maven 源地址是国外的，该Maven源在国内的访问速度是很慢的，除非使用了特别的手段。一般情况下，我们建议使用国内的第三方开放的Maven 源或企业内部自建Maven 源。
 
 **认识init.d 文件夹**
 
@@ -113,9 +113,9 @@ gradlew、gradlew.cmd的使用方式与gradle使用方式完全一致，只不�
 
 当然,我们也可在终端执行 gradlew 指令时，指定指定一些参数,来控制 Wrapper 的生成，比如依赖的版本等，如下：
 
-| 参数名                    | 说明                              |
-| :------------------------ | :-------------------------------- |
-| --gradle-version          | 用于指定使用的Gradle版本          |
+| 参数名                       | 说明                    |
+|:--------------------------|:----------------------|
+| --gradle-version          | 用于指定使用的Gradle版本       |
 | --gradle-distribution-url | 用于指定下载Gradle发行版的Url地址 |
 
 例如：
@@ -127,7 +127,8 @@ gradlew、gradlew.cmd的使用方式与gradle使用方式完全一致，只不�
 
 1. 当我们第一次执行 ./gradlew build 命令的时候，gradlew 会读取 gradle-wrapper.properties 文件的配置信息
 2. 准确的将指定版本的 gradle 下载并解压到指定的位置(GRADLE_USER_HOME目录下的wrapper/dists目录中)
-3. 并构建本地缓存(GRADLE_USER_HOME目录下的caches目录中),下载再使用相同版本的gradle就不用下载了4.之后执行的 ./gradlew 所有命令都是使用指定的 gradle 版本。**如下图所示**：
+3. 并构建本地缓存(GRADLE_USER_HOME目录下的caches目录中),下载再使用相同版本的gradle就不用下载了
+4. 之后执行的 ./gradlew 所有命令都是使用指定的 gradle 版本。**如下图所示**：
 
 ![img](第03章_Gradle快速入门.assets/1656577753830-6e4d4011-f157-4541-9765-b68d88e5f7a0.jpeg)
 
@@ -135,9 +136,9 @@ gradle-wrapper.properties 文件解读:
 
 ![img](第03章_Gradle快速入门.assets/1656577754141-a250e746-1235-40de-8dd5-10c6249b8ffb.jpeg)
 
-注意：前面提到的 **GRALE_USER_HOME 环境变量**用于这里的Gradle Wrapper 下载的特定版本的gradle 存储目录。如果我们**没有配置过GRALE_USER_HOME 环境变量,默认在当前用户家目录下的.gradle 文件夹中。**
+注意：前面提到的 **GRADLE_USER_HOME 环境变量**用于这里的Gradle Wrapper 下载的特定版本的gradle 存储目录。如果我们**没有配置过GRALE_USER_HOME 环境变量,默认在当前用户家目录下的.gradle 文件夹中。**
 
-那什么时候选择使用 gradle wrapper、什么时候选择使用本地gradle?
+**那什么时候选择使用 gradle wrapper、什么时候选择使用本地gradle?**
 
 下载别人的项目或者使用操作以前自己写的不同版本的gradle项目时：用Gradle wrapper,也即:gradlew
 

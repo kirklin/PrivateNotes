@@ -1,4 +1,4 @@
-# Gradle 环境搭建
+# 第02章_Gradle环境搭建.md
 
 ## 先决条件
 
@@ -71,11 +71,11 @@ GRADLE_HOME
 
 ![image-20221127230816705](第02章_Gradle环境搭建.assets/image-20221127230816705.png)
 
-**特别注意**：这里我们接着再配置一个 GRALE_USER_HOME 环境变量
+**特别注意**：这里我们接着再配置一个 GRADLE_USER_HOME 环境变量
 
 ![image-20221127231004550](第02章_Gradle环境搭建.assets/image-20221127231004550.png)
 
-GRALE_USER_HOME 相当于配置 Gradle 本地仓库位置和 Gradle Wrapper
+GRADLE_USER_HOME 相当于配置 Gradle 本地仓库位置和 Gradle Wrapper
 
 ## 测试安装
 
