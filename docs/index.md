@@ -156,4 +156,4 @@
 
 ### 2. 软件测试大赛
 
-### [2.1 详解介绍Selenium常用API的使用Java语言.md](./竞赛指南/软件测试大赛/详解介绍Selenium常用API的使用Java语言.md)
+### [2.1 详解介绍Selenium常用API的使用Java语言.md](./竞赛指南/软件测试大赛/Selenium_Java/详解介绍Selenium常用API的使用Java语言.md)
