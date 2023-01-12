@@ -1,0 +1,4284 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../%E7%AC%AC06%E7%AB%A0%20%E7%B4%A2%E5%BC%95%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+      
+      
+        <link rel="next" href="../%E7%AC%AC08%E7%AB%A0%20%E7%B4%A2%E5%BC%95%E7%9A%84%E5%88%9B%E5%BB%BA%E4%B8%8E%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/">
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.4">
+    
+    
+      
+        <title>第07章 InnoDB数据存储结构 - Kirk Lin的个人学习笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.9c788c91.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.2505c338.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../CustomTheme/css/main.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="light-green">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#07-innodb" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../../.." title="Kirk Lin的个人学习笔记" class="md-header__button md-logo" aria-label="Kirk Lin的个人学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Kirk Lin的个人学习笔记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              第07章 InnoDB数据存储结构
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="light-green"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+            </label>
+          
+        
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/kirklin/PrivateNotes" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kirklin/PrivateNotes
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../.." class="md-tabs__link">
+      笔记导航
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../GitHub%E6%96%B0%E6%89%8B%E6%8C%87%E5%8D%97/GitHub%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/" class="md-tabs__link">
+        GitHub新手指南
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../Gradle/" class="md-tabs__link md-tabs__link--active">
+        Java全套
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../%E5%89%8D%E7%AB%AF%E5%85%A8%E5%A5%97/JavaScript/JavaScript%E5%9F%BA%E7%A1%80/" class="md-tabs__link">
+        前端全套
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../%E7%AB%9E%E8%B5%9B%E6%8C%87%E5%8D%97/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E6%A8%A1%E6%9D%BF/" class="md-tabs__link">
+        竞赛指南
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/IO%E5%AD%90%E7%B3%BB%E7%BB%9F/" class="md-tabs__link">
+        计算机科学
+      </a>
+    </li>
+  
+
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Kirk Lin的个人学习笔记" class="md-nav__button md-logo" aria-label="Kirk Lin的个人学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Kirk Lin的个人学习笔记
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/kirklin/PrivateNotes" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kirklin/PrivateNotes
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        笔记导航
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2" tabindex="0" aria-expanded="false">
+          GitHub新手指南
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="GitHub新手指南" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          GitHub新手指南
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../GitHub%E6%96%B0%E6%89%8B%E6%8C%87%E5%8D%97/GitHub%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        GitHub是啥玩意？
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3" tabindex="0" aria-expanded="true">
+          Java全套
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Java全套" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Java全套
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3_1" type="checkbox" id="__nav_3_1" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../Gradle/">Gradle</a>
+          
+            <label for="__nav_3_1">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Gradle" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_1">
+          <span class="md-nav__icon md-icon"></span>
+          Gradle
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Gradle/%E7%AC%AC01%E7%AB%A0_Gradle%E6%A6%82%E8%BF%B0/" class="md-nav__link">
+        第01章_Gradle概述.md
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Gradle/%E7%AC%AC02%E7%AB%A0_Gradle%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="md-nav__link">
+        第02章_Gradle环境搭建.md
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Gradle/%E7%AC%AC03%E7%AB%A0_Gradle%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        第03章_Gradle快速入门.md
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Gradle/%E7%AC%AC04%E7%AB%A0_Groovy%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        第04章_Groovy快速入门
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" >
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_2" tabindex="0" aria-expanded="false">
+          JDBC核心技术
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="JDBC核心技术" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          JDBC核心技术
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../JDBC%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF/JDBC%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        JDBC核心技术
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3_3" type="checkbox" id="__nav_3_3" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_3" tabindex="0" aria-expanded="false">
+          JavaWeb
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="JavaWeb" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          JavaWeb
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../JavaWeb/Filter/" class="md-nav__link">
+        过滤器笔记
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../JavaWeb/Listener/" class="md-nav__link">
+        监听器笔记
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../JavaWeb/Servlet/" class="md-nav__link">
+        Servlet笔记
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../JavaWeb/Thymeleaf/" class="md-nav__link">
+        Thymeleaf笔记
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../JavaWeb/%E4%BC%9A%E8%AF%9D%E6%8E%A7%E5%88%B6/" class="md-nav__link">
+        会话控制笔记
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3_4" type="checkbox" id="__nav_3_4" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_4" tabindex="0" aria-expanded="false">
+          Java基础笔记
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Java基础笔记" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          Java基础笔记
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Java%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0/Java%E4%B8%AD%E7%B1%BB%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/" class="md-nav__link">
+        Java中类的那些事
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Java%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0/Java%E4%B9%8BIO%E6%B5%81/" class="md-nav__link">
+        Java之IO流
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Java%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0/Java%E4%B9%8BJava-8%E6%96%B0%E7%89%B9%E6%80%A7/" class="md-nav__link">
+        Java之Java 8新特性
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Java%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0/Java%E4%B9%8B%E5%85%B3%E9%94%AE%E5%AD%97%E7%9A%84%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        Java之关键字的使用
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Java%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0/Java%E4%B9%8B%E5%8F%8D%E5%B0%84/" class="md-nav__link">
+        Java之反射
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Java%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0/Java%E4%B9%8B%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/" class="md-nav__link">
+        Java之基本语法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Java%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0/Java%E4%B9%8B%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="md-nav__link">
+        Java之多线程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Java%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0/Java%E4%B9%8B%E5%B8%B8%E7%94%A8%E7%B1%BB/" class="md-nav__link">
+        Java之常用类
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Java%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0/Java%E4%B9%8B%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" class="md-nav__link">
+        Java之异常处理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Java%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0/Java%E4%B9%8B%E6%95%B0%E7%BB%84/" class="md-nav__link">
+        Java之数组
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Java%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0/Java%E4%B9%8B%E6%9E%9A%E4%B8%BE%E7%B1%BB%E5%92%8C%E6%B3%A8%E8%A7%A3/" class="md-nav__link">
+        Java之枚举类和注解
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Java%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0/Java%E4%B9%8B%E6%B3%9B%E5%9E%8B/" class="md-nav__link">
+        Java之泛型
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Java%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0/Java%E4%B9%8B%E7%BB%86%E8%AF%B4%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B8%89%E5%A4%A7%E7%89%B9%E5%BE%81/" class="md-nav__link">
+        Java之细说面向对象三大特征
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Java%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0/Java%E4%B9%8B%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" class="md-nav__link">
+        Java之网络编程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Java%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0/Java%E4%B9%8B%E9%9B%86%E5%90%88/" class="md-nav__link">
+        Java之集合
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Java%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0/Java%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0%E5%AF%BC%E8%88%AA/" class="md-nav__link">
+        Java基础笔记大纲
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3_5" type="checkbox" id="__nav_3_5" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_5" tabindex="0" aria-expanded="false">
+          Linux note
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Linux note" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_5">
+          <span class="md-nav__icon md-icon"></span>
+          Linux note
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Linux-note/Linux%E7%AC%94%E8%AE%B0%E5%AF%BC%E8%88%AA/" class="md-nav__link">
+        Linux笔记导航
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3_5_2" type="checkbox" id="__nav_3_5_2" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_5_2" tabindex="0" aria-expanded="false">
+          Shell编程
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Shell编程" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_5_2">
+          <span class="md-nav__icon md-icon"></span>
+          Shell编程
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Linux-note/shell%E7%BC%96%E7%A8%8B/5.10%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91/" class="md-nav__link">
+        Shell 输入/输出重定向
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Linux-note/shell%E7%BC%96%E7%A8%8B/5.11shell%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" class="md-nav__link">
+        Shell 文件包含
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Linux-note/shell%E7%BC%96%E7%A8%8B/5.1Shell%E7%AE%80%E4%BB%8B/" class="md-nav__link">
+        Shell简介
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Linux-note/shell%E7%BC%96%E7%A8%8B/5.2Shell%E5%8F%98%E9%87%8F/" class="md-nav__link">
+        Shell变量
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Linux-note/shell%E7%BC%96%E7%A8%8B/5.3Shell%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="md-nav__link">
+        Shell 字符串
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Linux-note/shell%E7%BC%96%E7%A8%8B/5.4Shell%E6%95%B0%E7%BB%84/" class="md-nav__link">
+        Shell数组
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Linux-note/shell%E7%BC%96%E7%A8%8B/5.5Shell%E8%BF%90%E7%AE%97%E7%AC%A6/" class="md-nav__link">
+        Shell运算符
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Linux-note/shell%E7%BC%96%E7%A8%8B/5.6Shell%E6%89%93%E5%8D%B0%E8%BE%93%E5%87%BA%E5%91%BD%E4%BB%A4/" class="md-nav__link">
+        Shell打印输出命令
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Linux-note/shell%E7%BC%96%E7%A8%8B/5.7Shelltest%E5%91%BD%E4%BB%A4/" class="md-nav__link">
+        Shell test 命令
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Linux-note/shell%E7%BC%96%E7%A8%8B/5.8Shell%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/" class="md-nav__link">
+        Shell 流程控制
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Linux-note/shell%E7%BC%96%E7%A8%8B/5.9Shell%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        Shell 函数
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3_5_3" type="checkbox" id="__nav_3_5_3" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_5_3" tabindex="0" aria-expanded="false">
+          课程笔记
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="课程笔记" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_5_3">
+          <span class="md-nav__icon md-icon"></span>
+          课程笔记
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Linux-note/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/1.1Linux%E8%AF%BE%E7%A8%8B%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        1.1Linux课程介绍
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Linux-note/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/2.1Linux%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        2.1Linux入门
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Linux-note/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/2.2Linux%E5%AE%89%E8%A3%85/" class="md-nav__link">
+        Linux安装
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Linux-note/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/2.3Linux%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/" class="md-nav__link">
+        2.3Linux目录结构
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Linux-note/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/3.10%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        3.10进程管理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Linux-note/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/3.11%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%28RPM%E5%92%8CYUM%29/" class="md-nav__link">
+        3.11包管理工具(RPM和YUM)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Linux-note/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/3.1%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95Linux%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        3.1远程登录Linux系统
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Linux-note/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/3.2vi%E5%92%8Cvim%E7%BC%96%E8%BE%91%E5%99%A8/" class="md-nav__link">
+        3.2vi和vim编辑器
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Linux-note/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/3.3%E5%85%B3%E6%9C%BA%E3%80%81%E9%87%8D%E5%90%AF%E5%92%8C%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95%E6%B3%A8%E9%94%80/" class="md-nav__link">
+        3.3关机、重启和用户登录注销
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Linux-note/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/3.4%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        3.4用户管理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Linux-note/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/3.5%E5%AE%9E%E7%94%A8%E6%8C%87%E4%BB%A4/" class="md-nav__link">
+        3.5实用指令
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Linux-note/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/3.6%E7%BB%84%E7%AE%A1%E7%90%86%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        3.6组管理和权限管理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Linux-note/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/3.7%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/" class="md-nav__link">
+        3.7定时任务调度
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Linux-note/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/3.8Linux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD%E5%BA%A6/" class="md-nav__link">
+        3.8Linux磁盘分区、挂载度
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Linux-note/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/3.9%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" class="md-nav__link">
+        3.9网络配置
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3_6" type="checkbox" id="__nav_3_6" checked>
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_6" tabindex="0" aria-expanded="true">
+          MySQL
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="MySQL" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_6">
+          <span class="md-nav__icon md-icon"></span>
+          MySQL
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3_6_1" type="checkbox" id="__nav_3_6_1" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../MySQL%E5%9F%BA%E7%A1%80%E7%AF%87%E7%AC%94%E8%AE%B0/">MySQL基础篇笔记</a>
+          
+            <label for="__nav_3_6_1">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="MySQL基础篇笔记" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_6_1">
+          <span class="md-nav__icon md-icon"></span>
+          MySQL基础篇笔记
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL%E5%9F%BA%E7%A1%80%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC01%E7%AB%A0_%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A6%82%E8%BF%B0/" class="md-nav__link">
+        第01章_数据库概述
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL%E5%9F%BA%E7%A1%80%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC02%E7%AB%A0_MySQL%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="md-nav__link">
+        第02章_MySQL环境搭建
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL%E5%9F%BA%E7%A1%80%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC03%E7%AB%A0_%E5%9F%BA%E6%9C%AC%E7%9A%84SELECT%E8%AF%AD%E5%8F%A5/" class="md-nav__link">
+        第03章_基本的SELECT语句
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL%E5%9F%BA%E7%A1%80%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC04%E7%AB%A0_%E8%BF%90%E7%AE%97%E7%AC%A6/" class="md-nav__link">
+        第04章_运算符
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL%E5%9F%BA%E7%A1%80%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC05%E7%AB%A0_%E6%8E%92%E5%BA%8F%E4%B8%8E%E5%88%86%E9%A1%B5/" class="md-nav__link">
+        第05章_排序与分页
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL%E5%9F%BA%E7%A1%80%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC06%E7%AB%A0_%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/" class="md-nav__link">
+        第06章_多表查询
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL%E5%9F%BA%E7%A1%80%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC07%E7%AB%A0_%E5%8D%95%E8%A1%8C%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        第07章_单行函数
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL%E5%9F%BA%E7%A1%80%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC08%E7%AB%A0_%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        第08章_聚合函数
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL%E5%9F%BA%E7%A1%80%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC09%E7%AB%A0_%E5%AD%90%E6%9F%A5%E8%AF%A2/" class="md-nav__link">
+        第09章_子查询
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL%E5%9F%BA%E7%A1%80%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC10%E7%AB%A0_%E5%88%9B%E5%BB%BA%E5%92%8C%E7%AE%A1%E7%90%86%E8%A1%A8/" class="md-nav__link">
+        第10章_创建和管理表
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL%E5%9F%BA%E7%A1%80%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC11%E7%AB%A0_%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E4%B9%8B%E5%A2%9E%E5%88%A0%E6%94%B9/" class="md-nav__link">
+        第11章_数据处理之增删改
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL%E5%9F%BA%E7%A1%80%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC12%E7%AB%A0_MySQL%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%B2%BE%E8%AE%B2/" class="md-nav__link">
+        第12章_MySQL数据类型精讲
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL%E5%9F%BA%E7%A1%80%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC13%E7%AB%A0_%E7%BA%A6%E6%9D%9F/" class="md-nav__link">
+        第13章_约束
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL%E5%9F%BA%E7%A1%80%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC14%E7%AB%A0_%E8%A7%86%E5%9B%BE/" class="md-nav__link">
+        第14章_视图
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL%E5%9F%BA%E7%A1%80%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC15%E7%AB%A0_%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E4%B8%8E%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        第15章_存储过程与函数
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL%E5%9F%BA%E7%A1%80%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC16%E7%AB%A0_%E5%8F%98%E9%87%8F%E3%80%81%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6%E4%B8%8E%E6%B8%B8%E6%A0%87/" class="md-nav__link">
+        第16章_变量、流程控制与游标
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL%E5%9F%BA%E7%A1%80%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC17%E7%AB%A0_%E8%A7%A6%E5%8F%91%E5%99%A8/" class="md-nav__link">
+        第17章_触发器
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL%E5%9F%BA%E7%A1%80%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC18%E7%AB%A0_MySQL8%E5%85%B6%E5%AE%83%E6%96%B0%E7%89%B9%E6%80%A7/" class="md-nav__link">
+        第18章_MySQL8其它新特性
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3_6_2" type="checkbox" id="__nav_3_6_2" checked>
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../">MySQL高级篇笔记</a>
+          
+            <label for="__nav_3_6_2">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="MySQL高级篇笔记" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_6_2">
+          <span class="md-nav__icon md-icon"></span>
+          MySQL高级篇笔记
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%AC%AC01%E7%AB%A0%20Linux%E4%B8%8BMySQL%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        第01章 Linux下MySQL的安装与使用
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%AC%AC02%E7%AB%A0%20MySQL%E7%9A%84%E6%95%B0%E6%8D%AE%E7%9B%AE%E5%BD%95/" class="md-nav__link">
+        第02章 MySQL的数据目录
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%AC%AC03%E7%AB%A0%20%E7%94%A8%E6%88%B7%E4%B8%8E%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        第03章 用户与权限管理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%AC%AC04%E7%AB%A0%20%E9%80%BB%E8%BE%91%E6%9E%B6%E6%9E%84/" class="md-nav__link">
+        第04章 逻辑架构
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%AC%AC05%E7%AB%A0%20%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/" class="md-nav__link">
+        第05章 存储引擎
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%AC%AC06%E7%AB%A0%20%E7%B4%A2%E5%BC%95%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="md-nav__link">
+        第06章 索引的数据结构
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          第07章 InnoDB数据存储结构
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        第07章 InnoDB数据存储结构
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#07-innodb" class="md-nav__link">
+    第07章 InnoDB数据存储结构
+  </a>
+  
+    <nav class="md-nav" aria-label="第07章 InnoDB数据存储结构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 数据库的存储结构：页
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 数据库的存储结构：页">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    1.1 磁盘与内存交互基本单位：页
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    1.2 页结构概述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    1.3 页的上层结构
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 页的内部结构
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 页的内部结构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-1" class="md-nav__link">
+    2.1 第1部分：文件头部和文件尾部
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1 第1部分：文件头部和文件尾部">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211-file-header38" class="md-nav__link">
+    2.1.1 File Header（文件头部）（38字节）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212-file-trailer8" class="md-nav__link">
+    2.1.2 File Trailer（文件尾部）（8字节）
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-2" class="md-nav__link">
+    2.2 第2部分：空闲空间、用户记录和最小最大记录
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 第2部分：空闲空间、用户记录和最小最大记录">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221-free-space" class="md-nav__link">
+    2.2.1 Free Space (空闲空间)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222-user-records" class="md-nav__link">
+    2.2.2 User Records (用户记录)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223-infimum-supremum" class="md-nav__link">
+    2.2.3 Infimum + Supremum（最小最大记录）
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-3" class="md-nav__link">
+    2.3 第3部分：页目录和页面头部
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3 第3部分：页目录和页面头部">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#231-page-directory" class="md-nav__link">
+    2.3.1 Page Directory（页目录）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#232-page-header" class="md-nav__link">
+    2.3.2 Page Header（页面头部）
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-innodb" class="md-nav__link">
+    3. InnoDB行格式（或记录格式）
+  </a>
+  
+    <nav class="md-nav" aria-label="3. InnoDB行格式（或记录格式）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    3.1 指定行格式的语法
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-compact" class="md-nav__link">
+    3.2 COMPACT行格式
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2 COMPACT行格式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#321" class="md-nav__link">
+    3.2.1 变长字段长度列表
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#322-null" class="md-nav__link">
+    3.2.2 NULL值列表
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#323-5" class="md-nav__link">
+    3.2.3 记录头信息（5字节）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#324" class="md-nav__link">
+    3.2.4 记录的真实数据
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-dynamiccompressed" class="md-nav__link">
+    3.3 Dynamic和Compressed行格式
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    4. 区、段和碎片区
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 区、段和碎片区">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    4.1 为什么要有区？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    4.2 为什么要有段？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    4.3 为什么要有碎片区？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44" class="md-nav__link">
+    4.4 区的分类
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%AC%AC08%E7%AB%A0%20%E7%B4%A2%E5%BC%95%E7%9A%84%E5%88%9B%E5%BB%BA%E4%B8%8E%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" class="md-nav__link">
+        第08章 索引的创建与设计原则
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%AC%AC09%E7%AB%A0%20%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        第09章 性能分析工具的使用
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%AC%AC10%E7%AB%A0%20%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E4%B8%8E%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        第10章 索引优化与查询优化
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%AC%AC11%E7%AB%A0%20%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        第11章 数据库的设计规范
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%AC%AC12%E7%AB%A0%20%E6%95%B0%E6%8D%AE%E5%BA%93%E5%85%B6%E5%AE%83%E8%B0%83%E4%BC%98%E7%AD%96%E7%95%A5/" class="md-nav__link">
+        第12章 数据库其它调优策略
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%AC%AC13%E7%AB%A0%20%E4%BA%8B%E5%8A%A1%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="md-nav__link">
+        第13章 事务基础知识
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%AC%AC14%E7%AB%A0%20MySQL%E4%BA%8B%E5%8A%A1%E6%97%A5%E5%BF%97/" class="md-nav__link">
+        第14章 MySQL事务日志
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%AC%AC15%E7%AB%A0%20%E9%94%81/" class="md-nav__link">
+        第15章 锁
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%AC%AC16%E7%AB%A0%20%E5%A4%9A%E7%89%88%E6%9C%AC%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6/" class="md-nav__link">
+        第16章 多版本并发控制
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%AC%AC17%E7%AB%A0%20%E5%85%B6%E5%AE%83%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%A5%E5%BF%97/" class="md-nav__link">
+        第17章 其它数据库日志
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%AC%AC18%E7%AB%A0%20%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/" class="md-nav__link">
+        第18章 主从复制
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%AC%AC19%E7%AB%A0%20%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/" class="md-nav__link">
+        第19章 数据库备份与恢复
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3_7" type="checkbox" id="__nav_3_7" >
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_7" tabindex="0" aria-expanded="false">
+          编码规范
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="编码规范" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_7">
+          <span class="md-nav__icon md-icon"></span>
+          编码规范
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/%E4%BB%A3%E7%A0%81%E9%A3%8E%E6%A0%BC%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        代码风格规范
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4" tabindex="0" aria-expanded="false">
+          前端全套
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="前端全套" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          前端全套
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_4_1" type="checkbox" id="__nav_4_1" >
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_1" tabindex="0" aria-expanded="false">
+          JavaScript
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="JavaScript" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_1">
+          <span class="md-nav__icon md-icon"></span>
+          JavaScript
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../%E5%89%8D%E7%AB%AF%E5%85%A8%E5%A5%97/JavaScript/JavaScript%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        JavaScript基础
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" >
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_2" tabindex="0" aria-expanded="false">
+          前端工程化
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="前端工程化" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          前端工程化
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_4_2_1" type="checkbox" id="__nav_4_2_1" >
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_2_1" tabindex="0" aria-expanded="false">
+          Webpack
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Webpack" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Webpack
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../%E5%89%8D%E7%AB%AF%E5%85%A8%E5%A5%97/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/Webpack/Webpack%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        Webpack入门
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5" tabindex="0" aria-expanded="false">
+          竞赛指南
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="竞赛指南" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          竞赛指南
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_5_1" type="checkbox" id="__nav_5_1" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5_1" tabindex="0" aria-expanded="false">
+          算法竞赛
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="算法竞赛" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_1">
+          <span class="md-nav__icon md-icon"></span>
+          算法竞赛
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../%E7%AB%9E%E8%B5%9B%E6%8C%87%E5%8D%97/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E6%A8%A1%E6%9D%BF/" class="md-nav__link">
+        快速排序算法模板
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../%E7%AB%9E%E8%B5%9B%E6%8C%87%E5%8D%97/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B/%E7%94%B1%E6%95%B0%E6%8D%AE%E8%8C%83%E5%9B%B4%E5%8F%8D%E6%8E%A8%E7%AE%97%E6%B3%95%E5%A4%8D%E6%9D%82%E5%BA%A6%E4%BB%A5%E5%8F%8A%E7%AE%97%E6%B3%95%E5%86%85%E5%AE%B9/" class="md-nav__link">
+        由数据范围反推算法复杂度以及算法内容
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_5_2" type="checkbox" id="__nav_5_2" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5_2" tabindex="0" aria-expanded="false">
+          软件测试大赛
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="软件测试大赛" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_2">
+          <span class="md-nav__icon md-icon"></span>
+          软件测试大赛
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_5_2_1" type="checkbox" id="__nav_5_2_1" >
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5_2_1" tabindex="0" aria-expanded="false">
+          Selenium Java
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Selenium Java" data-md-level="3">
+        <label class="md-nav__title" for="__nav_5_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Selenium Java
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../%E7%AB%9E%E8%B5%9B%E6%8C%87%E5%8D%97/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E5%A4%A7%E8%B5%9B/Selenium_Java/%E8%AF%A6%E8%A7%A3%E4%BB%8B%E7%BB%8DSelenium%E5%B8%B8%E7%94%A8API%E7%9A%84%E4%BD%BF%E7%94%A8Java%E8%AF%AD%E8%A8%80/" class="md-nav__link">
+        详解介绍Selenium常用API的使用Java语言
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_5_2_2" type="checkbox" id="__nav_5_2_2" >
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5_2_2" tabindex="0" aria-expanded="false">
+          Selenium Python
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Selenium Python" data-md-level="3">
+        <label class="md-nav__title" for="__nav_5_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Selenium Python
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../%E7%AB%9E%E8%B5%9B%E6%8C%87%E5%8D%97/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E5%A4%A7%E8%B5%9B/Selenium_Python/%E8%AF%A6%E8%A7%A3%E4%BB%8B%E7%BB%8DSelenium%E5%B8%B8%E7%94%A8API%E7%9A%84%E4%BD%BF%E7%94%A8Python%E8%AF%AD%E8%A8%80/" class="md-nav__link">
+        详解介绍Selenium常用API的使用Python语言
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_6" tabindex="0" aria-expanded="false">
+          计算机科学
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="计算机科学" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          计算机科学
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_6_1" type="checkbox" id="__nav_6_1" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_6_1" tabindex="0" aria-expanded="false">
+          计算机操作系统
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="计算机操作系统" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_1">
+          <span class="md-nav__icon md-icon"></span>
+          计算机操作系统
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/IO%E5%AD%90%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        I/O设备的机械部件
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E4%BF%A1%E5%8F%B7%E9%87%8F%E4%B8%8E%E7%AE%A1%E7%A8%8B/" class="md-nav__link">
+        信号量机制
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%86%85%E5%AD%98%E7%A9%BA%E9%97%B4%E7%9A%84%E6%89%A9%E5%85%85/" class="md-nav__link">
+        内存空间的扩充
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%8A%A8%E6%80%81%E5%88%86%E5%8C%BA%E5%88%86%E9%85%8D%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        动态分区分配算法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%90%8C%E6%AD%A5%E4%BA%92%E6%96%A5/" class="md-nav__link">
+        进程同步互斥
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%90%AF%E5%8A%A8%E3%80%81%E4%B8%AD%E6%96%AD%E3%80%81%E5%BC%82%E5%B8%B8%E5%92%8C%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/" class="md-nav__link">
+        启动、中断、异常和系统调用
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/" class="md-nav__link">
+        操作系统概述
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        文件的逻辑结构
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%AD%BB%E9%94%81%E5%92%8C%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1/" class="md-nav__link">
+        死锁的概念
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E7%89%A9%E7%90%86%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%EF%BC%9A%E8%BF%9E%E7%BB%AD%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/" class="md-nav__link">
+        物理内存管理：连续内存分配
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E7%89%A9%E7%90%86%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%EF%BC%9A%E9%9D%9E%E8%BF%9E%E7%BB%AD%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/" class="md-nav__link">
+        物理内存管理：非连续内存分配
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E7%AC%94%E8%AE%B0%E5%AF%BC%E8%88%AA/" class="md-nav__link">
+        计算机操作系统理论笔记大纲
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B/" class="md-nav__link">
+        进程和线程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6/" class="md-nav__link">
+        进程调度
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        进程调度算法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95%E4%B8%8E%E9%A1%B5%E9%9D%A2%E5%88%86%E9%85%8D%E7%AD%96%E7%95%A5/" class="md-nav__link">
+        页面置换算法与页面分配策略
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#07-innodb" class="md-nav__link">
+    第07章 InnoDB数据存储结构
+  </a>
+  
+    <nav class="md-nav" aria-label="第07章 InnoDB数据存储结构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 数据库的存储结构：页
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 数据库的存储结构：页">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    1.1 磁盘与内存交互基本单位：页
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    1.2 页结构概述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    1.3 页的上层结构
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 页的内部结构
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 页的内部结构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-1" class="md-nav__link">
+    2.1 第1部分：文件头部和文件尾部
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1 第1部分：文件头部和文件尾部">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211-file-header38" class="md-nav__link">
+    2.1.1 File Header（文件头部）（38字节）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212-file-trailer8" class="md-nav__link">
+    2.1.2 File Trailer（文件尾部）（8字节）
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-2" class="md-nav__link">
+    2.2 第2部分：空闲空间、用户记录和最小最大记录
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 第2部分：空闲空间、用户记录和最小最大记录">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221-free-space" class="md-nav__link">
+    2.2.1 Free Space (空闲空间)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222-user-records" class="md-nav__link">
+    2.2.2 User Records (用户记录)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223-infimum-supremum" class="md-nav__link">
+    2.2.3 Infimum + Supremum（最小最大记录）
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-3" class="md-nav__link">
+    2.3 第3部分：页目录和页面头部
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3 第3部分：页目录和页面头部">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#231-page-directory" class="md-nav__link">
+    2.3.1 Page Directory（页目录）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#232-page-header" class="md-nav__link">
+    2.3.2 Page Header（页面头部）
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-innodb" class="md-nav__link">
+    3. InnoDB行格式（或记录格式）
+  </a>
+  
+    <nav class="md-nav" aria-label="3. InnoDB行格式（或记录格式）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    3.1 指定行格式的语法
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-compact" class="md-nav__link">
+    3.2 COMPACT行格式
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2 COMPACT行格式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#321" class="md-nav__link">
+    3.2.1 变长字段长度列表
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#322-null" class="md-nav__link">
+    3.2.2 NULL值列表
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#323-5" class="md-nav__link">
+    3.2.3 记录头信息（5字节）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#324" class="md-nav__link">
+    3.2.4 记录的真实数据
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-dynamiccompressed" class="md-nav__link">
+    3.3 Dynamic和Compressed行格式
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    4. 区、段和碎片区
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 区、段和碎片区">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    4.1 为什么要有区？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    4.2 为什么要有段？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    4.3 为什么要有碎片区？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44" class="md-nav__link">
+    4.4 区的分类
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+
+  <h1>第07章 InnoDB数据存储结构</h1>
+
+<h3 id="07-innodb">第07章 InnoDB数据存储结构<a class="headerlink" href="#07-innodb" title="Permanent link">&para;</a></h3>
+<h4 id="1">1. 数据库的存储结构：页<a class="headerlink" href="#1" title="Permanent link">&para;</a></h4>
+<p>索引结构给我们提供了高效的索引方式，不过索引信息以及数据记录都保存在文件上的，确切说是存储在页结构中。另一方面，索引是在存储引擎中实现的，MySQL服务器上的<code>存储引擎</code>负责对表中数据的读取和写入工作。不同存储引擎中<code>存放的格式</code>一般不同的，甚至有的存储引擎比如Memory都不用磁盘来存储数据。</p>
+<p>由于<code>InnoDB</code>是MySQL的<code>默认存储引擎</code>，所以本章剖析InooDB存储引擎的数据存储结构。</p>
+<h5 id="11">1.1 磁盘与内存交互基本单位：页<a class="headerlink" href="#11" title="Permanent link">&para;</a></h5>
+<p>InnoDB将数据划分为若干个页，InnoDB中页的大小默认为<code>16KB</code>。</p>
+<p>以<code>页</code>作为磁盘和内存之间交互的基本单位，也就是一次最少从磁盘中读取16KB的内容到内存中，一次最少把内存中的16KB内容刷新到磁盘中。也就是说，**在数据库中，不论读一行，还是读多行，都是将这些行所在的页进行加载。也就是说，数据库管理存储空间的基本单位是页（Page），数据库I/O操作的最小单位是页。**一个页中可以存储多个行记录。</p>
+<blockquote>
+<p>记录是按照行来存储的，但是数据库的读取并不以行为单位，否则一次读取（也就是一次I/O操作）只能处理一行数据，效率会非常低。</p>
+</blockquote>
+<h5 id="12">1.2 页结构概述<a class="headerlink" href="#12" title="Permanent link">&para;</a></h5>
+<p>页a、页b、页c...页n这些页可以<code>不在物理结构上相连</code>，只要通过<code>双向链表</code>相关联即可。每个数据页中的记录会按照主键值从小到大的顺序组成一个<code>单向链表</code>，每个数据页都会为存储在它里边的记录生成一个<code>页目录</code>，在通过主键查找某条记录的时候可以在页目录中<code>使用二分法</code>快速定位到对应的槽，然后再遍历该槽对应的分组中的记录即可快速找到指定的记录。</p>
+<h5 id="13">1.3 页的上层结构<a class="headerlink" href="#13" title="Permanent link">&para;</a></h5>
+<p><img alt="image-20220330183814954" src="https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202203301838071.png" /></p>
+<p>区（Extent）是比页大一级的存储结构，在InnoDB存储引擎中，一个区会分配<code>64个连续的页</code>。因为InnoDB中的页大小默认是16KB，所以一个区的大小是64*16KB=<code>1MB</code>。</p>
+<p>段（Segment）由一个或多个区组成，区在文件系统是一个连续分配的空间（在InnoDB中是连续的64个页），不过在段中不要求区与区之间是相邻的。<code>段是数据库中的分配单位，不同类型的数据库对象以不同的段形式存在。</code>当我们创建数据表、索引的时候，就会相应创建对应的段，比如创建一张表时会创建一个表段，创建一个索引时会创建一个索引段。</p>
+<p>表空间（Tablespace）是一个逻辑容器，表空间存储的对象是段，在一个表空间中可以有一个或多个段，但是一个段只能属于一个表空间。数据库由一个或多个表空间组成，表空间从管理上可以划分为<code>系统表空间</code>、<code>用户表空间</code>、<code>撤销表空间</code>、<code>临时表空间</code>等。</p>
+<h4 id="2">2. 页的内部结构<a class="headerlink" href="#2" title="Permanent link">&para;</a></h4>
+<h5 id="21-1">2.1 第1部分：文件头部和文件尾部<a class="headerlink" href="#21-1" title="Permanent link">&para;</a></h5>
+<h6 id="211-file-header38">2.1.1 File Header（文件头部）（38字节）<a class="headerlink" href="#211-file-header38" title="Permanent link">&para;</a></h6>
+<p><strong>作用</strong>：
+描述各种页的通用信息。（比如页的编号、其上一页、下一页是谁等）</p>
+<p><strong>大小</strong>：38字节</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>占用空间大小</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FIL_PAGE_SPACE_OR_CHKSUM</code></td>
+<td><code>4</code>字节</td>
+<td>页的校验和（checksum值）</td>
+</tr>
+<tr>
+<td><code>FIL_PAGE_OFFSET</code></td>
+<td><code>4</code>字节</td>
+<td>页号</td>
+</tr>
+<tr>
+<td><code>FIL_PAGE_PREV</code></td>
+<td><code>4</code>字节</td>
+<td>上一个页的页号</td>
+</tr>
+<tr>
+<td><code>FIL_PAGE_NEXT</code></td>
+<td><code>4</code>字节</td>
+<td>下一个页的页号</td>
+</tr>
+<tr>
+<td>FIL_PAGE_LSN</td>
+<td><code>8</code>字节</td>
+<td>页面被最后修改时对应的日志序列位置</td>
+</tr>
+<tr>
+<td><code>FIL_PAGE_TYPE</code></td>
+<td><code>2</code>字节</td>
+<td>该页的类型</td>
+</tr>
+<tr>
+<td>FIL_PAGE_FILE_FLUSH_LSN</td>
+<td><code>8</code>字节</td>
+<td>仅在系统表空间的一个页中定义，代表文件至少被刷新到了对应的LSN值</td>
+</tr>
+<tr>
+<td><code>FIL_PAGE_ARCH_LOG_NO_OR_SPACE_ID</code></td>
+<td><code>4</code>字节</td>
+<td>页属于哪个表空间</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><code>FIL_PAGE_OFFSET（4字节）</code>：每一个页都有一个单独的页号，就跟你的身份证号码一样，InnoDB通过页号可以唯一定位一个页。</li>
+<li><code>FIL_PAGE_TYPE（2字节）</code>：这个代表当前页的类型。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类型名称</th>
+<th>十六进制</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FIL_PAGE_TYPE_ALLOCATED</td>
+<td>0x0000</td>
+<td>最新分配，还没有使用</td>
+</tr>
+<tr>
+<td><code>FIL_PAGE_UNDO_LOG</code></td>
+<td>0x0002</td>
+<td>Undo日志页</td>
+</tr>
+<tr>
+<td>FIL_PAGE_INODE</td>
+<td>0x0003</td>
+<td>段信息节点</td>
+</tr>
+<tr>
+<td>FIL_PAGE_IBUF_FREE_LIST</td>
+<td>0x0004</td>
+<td>Insert Buffer空闲列表</td>
+</tr>
+<tr>
+<td>FIL_PAGE_IBUF_BITMAP</td>
+<td>0x0005</td>
+<td>Insert Buffer位图</td>
+</tr>
+<tr>
+<td><code>FIL_PAGE_TYPE_SYS</code></td>
+<td>0x0006</td>
+<td>系统页</td>
+</tr>
+<tr>
+<td>FIL_PAGE_TYPE_TRX_SYS</td>
+<td>0x0007</td>
+<td>事务系统数据</td>
+</tr>
+<tr>
+<td>FIL_PAGE_TYPE_FSP_HDR</td>
+<td>0x0008</td>
+<td>表空间头部信息</td>
+</tr>
+<tr>
+<td>FIL_PAGE_TYPE_XDES</td>
+<td>0x0009</td>
+<td>扩展描述页</td>
+</tr>
+<tr>
+<td>FIL_PAGE_TYPE_BLOB</td>
+<td>0x000A</td>
+<td>溢出页</td>
+</tr>
+<tr>
+<td><code>FIL_PAGE_INDEX</code></td>
+<td>0x45BF</td>
+<td>索引页，也就是我们所说的<code>数据页</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><code>FIL_PAGE_PREV（4字节）和FIL_PAGE_NEXT（4字节）</code>：InnoDB都是以页为单位存放数据的，如果数据分散到多个不连续的页中存储的话需要把这些页关联起来，FIL_PAGE_PREV和FIL_PAGE_NEXT就分别代表本页的上一个和下一个页的页号。这样通过建立一个双向链表把许许多多的页就都串联起来了，保证这些页之间**不需要是物理上的连续，而是逻辑上的连续。**</li>
+<li><code>FIL_PAGE_SPACE_OR_CHKSUM（4字节）</code>：代表当前页面的校验和（checksum）。文件头部和文件尾部都有属性：FIL_PAGE_SPACE_OR_CHKSUM</li>
+</ul>
+<p><strong>作用：</strong></p>
+<p>InnoDB存储引擎以页为单位把数据加载到内存中处理，如果该页中的数据在内存中被修改了，那么<code>在修改后的某个时间需要把数据同步到磁盘中。</code>但是在同步了一半的时候断电了，造成了该页传输的不完整。</p>
+<p>为了检测一个页是否完整（也就是在同步的时候有没有发生只同步一半的尴尬情况），这时可以通过文件尾的校验和（checksum 值）与文件头的校验和做比对，如果两个值不相等则证明页的传输有问题，需要重新进行传输，否则认为页的传输已经完成。</p>
+<ul>
+<li><code>FIL_PAGE_LSN（8字节）</code>：页面被最后修改时对应的日志序列位置（英文名是：Log Sequence Number）</li>
+</ul>
+<h6 id="212-file-trailer8">2.1.2 File Trailer（文件尾部）（8字节）<a class="headerlink" href="#212-file-trailer8" title="Permanent link">&para;</a></h6>
+<ul>
+<li>前4个字节代表页的校验和：这个部分是和File Header中的校验和相对应的。</li>
+<li>后4个字节代表页面被最后修改时对应的日志序列位置（LSN）：这个部分也是为了校验页的完整性的，如果首部和尾部的LSN值校验不成功的话，就说明同步过程出现了问题。</li>
+</ul>
+<h5 id="22-2">2.2 第2部分：空闲空间、用户记录和最小最大记录<a class="headerlink" href="#22-2" title="Permanent link">&para;</a></h5>
+<h6 id="221-free-space">2.2.1 Free Space (空闲空间)<a class="headerlink" href="#221-free-space" title="Permanent link">&para;</a></h6>
+<p>我们自己存储的记录会按照指定的<code>行格式</code>存储到<code>User Records</code>部分。但是在一开始生成页的时候，其实并没有User Records这个部分，<code>每当我们插入一条记录，都会从Free Space部分，也就是尚未使用的存储空间中申请一个记录大小的空间划分到User Records部分</code>，当Free Space部分的空间全部被User Records部分替代掉之后，也就意味着这个页使用完了，如果还有新的记录插入的话，就需要去<code>申请新的页</code>了。</p>
+<h6 id="222-user-records">2.2.2 User Records (用户记录)<a class="headerlink" href="#222-user-records" title="Permanent link">&para;</a></h6>
+<p>User Records中的这些记录按照<code>指定的行格式</code>一条一条摆在User Records部分，相互之间形成<code>单链表</code>。</p>
+<h6 id="223-infimum-supremum">2.2.3 Infimum + Supremum（最小最大记录）<a class="headerlink" href="#223-infimum-supremum" title="Permanent link">&para;</a></h6>
+<p><strong>记录可以比较大小吗</strong>？
+是的，记录可以比大小，对于一条完整的记录来说，比较记录的大小就是<code>比较主键</code>的大小。比方说我们插入的4行记录的主键值分别是：1、2、3、4，这也就意味着这4条记录是从小到大依次递增。</p>
+<p>InnoDB规定的最小记录与最大记录这两条记录的构造十分简单，都是由5字节大小的记录头信息和8字节大小的一个固定的部分组成的。</p>
+<p><img alt="image-20220330191335574" src="https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202203301913664.png" /></p>
+<p>这两条记录<code>不是我们自己定义的记录</code>，所以它们并不存放在页的User Records部分，他们被单独放在一个称为Infimum + Supremum的部分</p>
+<p><img alt="image-20220330191446070" src="https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202203301914167.png" /></p>
+<h5 id="23-3">2.3 第3部分：页目录和页面头部<a class="headerlink" href="#23-3" title="Permanent link">&para;</a></h5>
+<h6 id="231-page-directory">2.3.1 Page Directory（页目录）<a class="headerlink" href="#231-page-directory" title="Permanent link">&para;</a></h6>
+<p><strong>为什么需要页目录</strong>？
+在页中，记录是以<code>单向链表</code>的形式进行存储的。单向链表的特点就是插入、删除非常方便，但是<code>检索效率不高</code>，最差的情况下需要遍历链表上的所有节点才能完成检索。因此在页结构中专门设计了页目录这个模块，<code>专门给记录做一个目录</code>，通过<code>二分查找法</code>的方式进行检索，提升效率。</p>
+<p><strong>页目录，二分法查找</strong></p>
+<ol>
+<li>将所有的记录<code>分成几个组</code>，这些记录包括最小记录和最大记录，但不包括标记为“已删除”的记录。</li>
+<li>第 1 组，也就是最小记录所在的分组只有 1 个记录；
+   最后一组，就是最大记录所在的分组，会有 1-8 条记录；
+   其余的组记录数量在 4-8 条之间。
+   这样做的好处是，除了第 1 组（最小记录所在组）以外，其余组的记录数会<code>尽量平分</code>。</li>
+<li>在每个组中最后一条记录的头信息中会存储该组一共有多少条记录，作为 n_owned 字段。</li>
+<li><code>页目录用来存储每组最后一条记录的地址偏移量</code>，这些地址偏移量会按照<code>先后顺序存储</code>起来，每组的地址偏移量也被称之为<code>槽（slot）</code>，每个槽相当于指针指向了不同组的最后一个记录。</li>
+</ol>
+<p><strong>举例：</strong></p>
+<p>现在的page_demo表中正常的记录共有6条，InnoDB会把它们分成两组，第一组中只有一个最小记录，第二组中是剩余的5条记录。如下图：</p>
+<p><img alt="image-20220330192130497" src="https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202203301921631.png" /></p>
+<p>从这个图中我们需要注意这么几点：</p>
+<ul>
+<li>现在页目录部分中有两个槽，也就意味着我们的记录被分成了两个组，槽1中的值是112，代表最大记录的地址偏移量（就是从页面的0字节开始数，数112个字节）；槽0中的值是99，代表最小记录的地址偏移量。</li>
+<li>注意最小和最大记录的头信息中的n_owned属性</li>
+<li>最小记录的n_owned值为1，这就代表着以最小记录结尾的这个分组中只有1条记录，也就是最小记录本身。</li>
+<li>最大记录的n_owned值为5，这就代表着以最大记录结尾的这个分组中只有5条记录，包括最大记录本身还有我们自己插入的4条记录。</li>
+</ul>
+<p>用箭头指向的方式替代数字，这样更易于我们理解，修改后如下</p>
+<p><img alt="image-20220330192413776" src="https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202203301924874.png" /></p>
+<p><strong>为什么最小记录的n_owned值为1，而最大记录的n_owned值为5呢？</strong></p>
+<p>InnoDB规定：对于最小记录所在的分组只能有1条记录，最大记录所在的分组拥有的记录条数只能在1~8条之间，剩下的分组中记录的条数范围只能在是 4~8 条之间。</p>
+<p>分组是按照下边的步骤进行的：</p>
+<ul>
+<li>初始情况下一个数据页里只有最小记录和最大记录两条记录，它们分属于两个分组。</li>
+<li>之后每插入一条记录，都会从页目录中找到主键值比本记录的主键值大并且差值最小的槽，然后把该槽对应的记录的n_owned值加1，表示本组内又添加了一条记录，直到该组中的记录数等于8个。</li>
+<li>在一个组中的记录数等于8个后再插入一条记录时，会将组中的记录拆分成两个组，一个组中4条记录，另一个5条记录。这个过程会在页目录中新增一个槽来记录这个新增分组中最大的那条记录的偏移量。</li>
+</ul>
+<h6 id="232-page-header">2.3.2 Page Header（页面头部）<a class="headerlink" href="#232-page-header" title="Permanent link">&para;</a></h6>
+<p>为了能得到一个数据页中存储的记录的状态信息，比如本页中已经存储了多少条记录，第一条记录的地址是什么，页目录中存储了多少个槽等等，特意在页中定义了一个叫Page Header的部分，这个部分占用固定的56个字节，专门存储各种状态信息。</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>占用空间大小</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PAGE_N_DIR_SLOTS</td>
+<td>2字节</td>
+<td>在页目录中的槽数量</td>
+</tr>
+<tr>
+<td>PAGE_HEAP_TOP</td>
+<td>2字节</td>
+<td>还未使用的空间最小地址，也就是说从该地址之后就是<code>Free Space</code></td>
+</tr>
+<tr>
+<td>PAGE_N_HEAP</td>
+<td>2字节</td>
+<td>本页中的记录的数量（包括最小和最大记录以及标记为删除的记录）</td>
+</tr>
+<tr>
+<td>PAGE_FREE</td>
+<td>2字节</td>
+<td>第一个已经标记为删除的记录的记录地址（各个已删除的记录通过<code>next_record</code>也会组成一个单链表，这个单链表中的记录可以被重新利用）</td>
+</tr>
+<tr>
+<td>PAGE_GARBAGE</td>
+<td>2字节</td>
+<td>已删除记录占用的字节数</td>
+</tr>
+<tr>
+<td>PAGE_LAST_INSERT</td>
+<td>2字节</td>
+<td>最后插入记录的位置</td>
+</tr>
+<tr>
+<td>PAGE_DIRECTION</td>
+<td>2字节</td>
+<td>记录插入的方向</td>
+</tr>
+<tr>
+<td>PAGE_N_DIRECTION</td>
+<td>2字节</td>
+<td>一个方向连续插入的记录数量</td>
+</tr>
+<tr>
+<td>PAGE_N_RECS</td>
+<td>2字节</td>
+<td>该页中记录的数量（不包括最小和最大记录以及被标记为删除的记录）</td>
+</tr>
+<tr>
+<td>PAGE_MAX_TRX_ID</td>
+<td>8字节</td>
+<td>修改当前页的最大事务ID，该值仅在二级索引中定义</td>
+</tr>
+<tr>
+<td>PAGE_LEVEL</td>
+<td>2字节</td>
+<td>当前页在B+树中所处的层级</td>
+</tr>
+<tr>
+<td>PAGE_INDEX_ID</td>
+<td>8字节</td>
+<td>索引ID，表示当前页属于哪个索引</td>
+</tr>
+<tr>
+<td>PAGE_BTR_SEG_LEAF</td>
+<td>10字节</td>
+<td>B+树叶子段的头部信息，仅在B+树的Root页定义</td>
+</tr>
+<tr>
+<td>PAGE_BTR_SEG_TOP</td>
+<td>10字节</td>
+<td>B+树非叶子段的头部信息，仅在B+树的Root页定义</td>
+</tr>
+</tbody>
+</table>
+<h4 id="3-innodb">3. InnoDB行格式（或记录格式）<a class="headerlink" href="#3-innodb" title="Permanent link">&para;</a></h4>
+<h5 id="31">3.1 指定行格式的语法<a class="headerlink" href="#31" title="Permanent link">&para;</a></h5>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">表名</span><span class="w"> </span><span class="p">(</span><span class="n">列的信息</span><span class="p">)</span><span class="w"> </span><span class="k">ROW_FORMAT</span><span class="o">=</span><span class="n">行格式名称</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">表名</span><span class="w"> </span><span class="k">ROW_FORMAT</span><span class="o">=</span><span class="n">行格式名称</span>
+</code></pre></div>
+<h5 id="32-compact">3.2 COMPACT行格式<a class="headerlink" href="#32-compact" title="Permanent link">&para;</a></h5>
+<p>在MySQL 5.1版本中，默认设置为Compact行格式。一条完整的记录其实可以被分为记录的额外信息和记录的真实数据两大部分。</p>
+<p><img alt="image-20220330193949517" src="https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202203301939611.png" /></p>
+<h6 id="321">3.2.1 变长字段长度列表<a class="headerlink" href="#321" title="Permanent link">&para;</a></h6>
+<p>MySQL支持一些变长的数据类型，比如VARCHAR(M)、VARBINARY(M)、TEXT类型，BLOB类型，这些数据类型修饰列称为<code>变长字段</code>，变长字段中存储多少字节的数据不是固定的，所以我们在存储真实数据的时候需要顺便把这些数据占用的字节数也存起来。<code>在Compact行格式中，把所有变长字段的真实数据占用的字节长度都存放在记录的开头部位，从而形成一个变长字段长度列表。</code></p>
+<blockquote>
+<p>注意：这里面存储的变长长度和字段顺序是反过来的。比如两个varchar字段在表结构的顺序是a(10)，b(15)。那么在变长字段长度列表中存储的长度顺序就是15，10，是反过来的。</p>
+</blockquote>
+<h6 id="322-null">3.2.2 NULL值列表<a class="headerlink" href="#322-null" title="Permanent link">&para;</a></h6>
+<p>Compact行格式会把可以为NULL的列统一管理起来，存在一个标记为NULL值列表中。如果表中没有允许存储 NULL 的列，则 NULL值列表也不存在了。
+<strong>为什么定义NULL值列表？</strong>
+之所以要存储NULL是因为数据都是需要对齐的，如果<code>没有标注出来NULL值的位置</code>，就有可能在查询数据的时候<code>出现混乱</code>。如果使用<code>一个特定的符号</code>放到相应的数据位表示空置的话，虽然能达到效果，但是这样很浪费空间，所以直接就在行数据得头部开辟出一块空间专门用来记录该行数据哪些是非空数据，哪些是空数据，格式如下：</p>
+<ol>
+<li>二进制位的值为1时，代表该列的值为NULL。</li>
+<li>二进制位的值为0时，代表该列的值不为NULL。</li>
+</ol>
+<blockquote>
+<p>注意：同样顺序也是反过来存放的</p>
+</blockquote>
+<h6 id="323-5">3.2.3 记录头信息（5字节）<a class="headerlink" href="#323-5" title="Permanent link">&para;</a></h6>
+<p><img alt="image-20220330194534127" src="https://cdn.jsdelivr.net/gh/aoshihuankong/cloudimg@master/img/202203301945235.png" /></p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>大小（单位：bit）</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>预留位1</code></td>
+<td>1</td>
+<td>没有使用</td>
+</tr>
+<tr>
+<td><code>预留位2</code></td>
+<td>1</td>
+<td>没有使用</td>
+</tr>
+<tr>
+<td><code>delete_mask</code></td>
+<td>1</td>
+<td>标记该记录是否被删除</td>
+</tr>
+<tr>
+<td><code>mini_rec_mask</code></td>
+<td>1</td>
+<td>B+树的每层非叶子节点中的最小记录都会添加该标记</td>
+</tr>
+<tr>
+<td><code>n_owned</code></td>
+<td>4</td>
+<td>表示当前记录拥有的记录数</td>
+</tr>
+<tr>
+<td><code>heap_no</code></td>
+<td>13</td>
+<td>表示当前记录在记录堆的位置信息</td>
+</tr>
+<tr>
+<td><code>record_type</code></td>
+<td>3</td>
+<td>表示当前记录的类型，<code>0</code>表示普通记录，<code>1</code>表示B+树非叶子节点记录，<code>2</code>表示最小记录，<code>3</code>表示最大记录</td>
+</tr>
+<tr>
+<td><code>next_record</code></td>
+<td>16</td>
+<td>表示下一条记录的相对位置</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><code>delete_mask</code>：这个属性标记着当前记录是否被删除，占用1个二进制位。</li>
+<li>值为0：代表记录并没有被删除</li>
+<li>值为1：代表记录被删除掉了</li>
+</ul>
+<p><strong>被删除的记录为什么还在页中存储呢？</strong>
+你以为它删除了，可它还在真实的磁盘上。这些被删除的记录之所以不立即从磁盘上移除，是因为移除它们之后其他的记录在磁盘上需要<code>重新排列，导致性能消耗</code>。所以只是打一个删除标记而已，所有被删除掉的记录都会组成一个所谓的<code>垃圾链表</code>，在这个链表中的记录占用的空间称之为<code>可重用空间</code>，之后如果有新记录插入到表中的话，可能把这些被删除的记录占用的存储空间覆盖掉。</p>
+<ul>
+<li><code>min_rec_mask</code>：B+树的每层非叶子节点中的最小记录都会添加该标记，min_rec_mask值为1。我们自己插入的四条记录的min_rec_mask值都是0，意味着它们都不是B+树的非叶子节点中的最小记录。</li>
+<li><code>record_type</code>：这个属性表示当前记录的类型，一共有4种类型的记录：</li>
+<li>0：表示普通记录</li>
+<li>1：表示B+树非叶节点记录</li>
+<li>2：表示最小记录</li>
+<li>3：表示最大记录</li>
+<li><code>heap_no</code>：这个属性表示当前记录在本页中的位置。</li>
+</ul>
+<p><strong>怎么不见heap_no值为0和1的记录呢</strong>？
+MySQL会自动给每个页里加了两个记录，由于这两个记录并不是我们自己插入的，所以有时候也称为<code>伪记录</code>或者<code>虚拟记录</code>。这两个伪记录一个代表<code>最小记录</code>，一个代表<code>最大记录</code>。最小记录和最大记录的heap_no值分别是0和1，也就是说它们的位置最靠前</p>
+<ul>
+<li><code>n_owned</code>：页目录中每个组中最后一条记录的头信息中会存储该组一共有多少条记录，作为 n_owned 字段</li>
+<li><code>next_record</code>：记录头信息里该属性非常重要，它表示从当前记录的真实数据到下一条记录的真实数据的<code>地址偏移量</code>。</li>
+</ul>
+<h6 id="324">3.2.4 记录的真实数据<a class="headerlink" href="#324" title="Permanent link">&para;</a></h6>
+<table>
+<thead>
+<tr>
+<th>列名</th>
+<th>是否必须</th>
+<th>占用空间</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>row_id</td>
+<td>否</td>
+<td>6字节</td>
+<td>行ID，唯一标识一条记录</td>
+</tr>
+<tr>
+<td>transaction_id</td>
+<td>是</td>
+<td>6字节</td>
+<td>事务ID</td>
+</tr>
+<tr>
+<td>roll_pointer</td>
+<td>是</td>
+<td>7字节</td>
+<td>回滚指针</td>
+</tr>
+</tbody>
+</table>
+<p>一个表没有手动定义主键，则会选取一个Unique键作为主键，如果连Unique键都没有定义的话，则会为表默认添加一个名为row_id的隐藏列作为主键。所以row_id是在没有自定义主键以及Unique键的情况下才会存在的。</p>
+<h5 id="33-dynamiccompressed">3.3 Dynamic和Compressed行格式<a class="headerlink" href="#33-dynamiccompressed" title="Permanent link">&para;</a></h5>
+<p>我们可以知道一个页的大小一般是16KB，也就是16384字节，而一个VARCHAR(M)类型的列就最多可以存储65533个字节，这样就可能出现一个页存放不了一条记录，这种现象称为<code>行溢出</code></p>
+<p>在Compact和Reduntant行格式中，对于占用存储空间非常大的列，在记录的真实数据处只会存储该列的一部分数据，把剩余的数据分散存储在几个其他的页中进行<code>分页存储</code>，然后记录的真实数据处用20个字节存储指向这些页的地址（当然这20个字节中还包括这些分散在其他页面中的数据的占用的字节数），从而可以找到剩余数据所在的页。这称为<code>页的扩展</code>。</p>
+<p>在MySQL 8.0中，默认行格式就是Dynamic，Dynamic、Compressed行格式和Compact行格式挺像，只不过在处理行溢出数据时有分歧</p>
+<ul>
+<li>Compressed和Dynamic两种记录格式对于存放在BLOB中的数据采用了完全的行溢出的方式。如图，在数据页中只存放20个字节的指针（溢出页的地址），实际的数据都存放在Off Page（溢出页）中。</li>
+<li>Compact和Redundant两种格式会在记录的真实数据处存储一部分数据（存放768个前缀字节）。</li>
+</ul>
+<h4 id="4">4. 区、段和碎片区<a class="headerlink" href="#4" title="Permanent link">&para;</a></h4>
+<h5 id="41">4.1 为什么要有区？<a class="headerlink" href="#41" title="Permanent link">&para;</a></h5>
+<p><code>B+</code>树的每一层中的页都会形成一个双向链表，如果是以<code>页为单位</code>来分配存储空间的话，双向链表相邻的两个页之间的<code>物理位置可能离得非常远</code>。我们介绍B+树索引的使用场景的时候特别提到范围查询只需要定位到最左边的记录和最右边的记录，然后沿着双向链表一直扫描就可以了，而如果链表中相邻的两个页物理位置离得非常远，就是所谓的<code>随机I/O</code>。再一次强调，磁盘的速度和内存的速度差了好几个数量级，<code>随机I/O是非常慢</code>的，所以我们应该尽量让链表中相邻的页的物理位置也相邻，这样进行范围查询的时候才可以使用所谓的<code>顺序I/O</code>。</p>
+<p>引入<code>区</code>的概念，一个区就是物理位置上连续的<code>64个页</code>。因为InnoDB中的页的大小默认是16KB，所以一个区的大小是64*16KB=<code>1MB</code>。在表中<code>数据量大</code>的时候，为某个索引分配空间的时候就不再按照页的单位分配了，而是按照<code>区为单位分配</code>，甚至在表中的数据特别多的时候，可以一次性分配多个连续的区。虽然可能造成<code>一点点空间的浪费</code>（数据不足以填充满整个区），但是从性能角度看，可以消除很多的随机I/O，<code>功大于过</code>！</p>
+<h5 id="42">4.2 为什么要有段？<a class="headerlink" href="#42" title="Permanent link">&para;</a></h5>
+<p>对于范围查询，其实是对B+树叶子节点中的记录进行顺序扫描，而如果不区分叶子节点和非叶子节点，统统把节点代表的页面放到申请到的区中的话，进行范围扫描的效果就大打折扣了。所以InnoDB对B+树的<code>叶子节点</code>和<code>非叶子节点</code>进行了区别对待，也就是说叶子节点有自己独有的区，非叶子节点也有自己独有的区。存放叶子节点的区的集合就算是一个<code>段（segment）</code>，存放非叶子节点的区的集合也算是一个段。也就是说一个索引会生成2个段，一个<code>叶子节点段</code>，一个<code>非叶子节点段</code>。</p>
+<p>除了索引的叶子节点段和非叶子节点段之外，InnoDB中还有为存储一些特殊的数据而定义的段，比如回滚段。所以，常见的段有<code>数据段</code>、<code>索引段</code>、<code>回滚段</code>。数据段即为B+树的叶子节点，索引段即为B+树的非叶子节点。</p>
+<p>在InnoDB存储引擎中，对段的管理都是由引擎自身所完成，DBA不能也没有必要对其进行控制。这从一定程度上简化了DBA对于段的管理。</p>
+<p>段其实不对应表空间中的某一个连续的物理区域，而是一个逻辑上的概念，由若干个零散的页面以及一些完整的区组成。</p>
+<h5 id="43">4.3 为什么要有碎片区？<a class="headerlink" href="#43" title="Permanent link">&para;</a></h5>
+<p>默认情况下，一个使用InnoDB存储引擎的表只有一个聚簇索引，一个索引会生成2个段，而段是以区为单位申请存储空间的，一个区默认占用1M（64*16KB=1024KB）存储空间，所以**默认情况下一个只存在几条记录的小表也需要2M的存储空间么？**以后每次添加一个索引都要多申请2M的存储空间么？这对于存储记录比较少的表简直是天大的浪费。这个问题的症结在于到现在为止我们介绍的区都是非常<code>纯粹</code>的，也就是一个区被整个分配给某一个段，或者说区中的所有页面都是为了存储同一个段的数据而存在的，即使段的数据填不满区中所有的页面，那余下的页面也不能挪作他用。</p>
+<p>为了考虑以完整的区为单位分配给某个段对于<code>数据量较小</code>的表太浪费存储空间的这种情况，InnoDB提出了一个<code>碎片（fragment）区</code>的概念。在一个碎片区中，并不是所有的页都是为了存储同一个段的数据而存在的，而是碎片区中的页可以用于不同的目的，比如有些页面用于段A，有些页面用于段B，有些页甚至哪个段都不属于。<code>碎片区直属于表空间</code>，并不属于任何一个段。</p>
+<p>所以此后为某个段分配存储空间的策略是这样的：</p>
+<ul>
+<li>在刚开始向表中插入数据的时候，段是从某个碎片区以单个页面为单位来分配存储空间的。</li>
+<li>当某个段已经占用了<code>32个碎片区</code>页面之后，就会申请以完整的区为单位来分配存储空间。</li>
+</ul>
+<p>所以现在段不能仅定义为是某些区的集合，更精确的应该是<code>某些零散的页面</code>已经<code>一些完整的区</code>的集合。</p>
+<h5 id="44">4.4 区的分类<a class="headerlink" href="#44" title="Permanent link">&para;</a></h5>
+<p>区大体上可以分为4种类型：</p>
+<ul>
+<li><code>空闲的区(FREE)</code>：现在还没有用到这个区中的任何页面。</li>
+<li><code>有剩余空间的碎片区(FREE_FRAG)</code>：表示碎片区中还有可用的页面。</li>
+<li><code>没有剩余空间的碎片区(FULL_FRAG)</code>：表示碎片区中的所有页面都被使用，没有空闲页面。</li>
+<li><code>附属于某个段的区(FSEG)</code>：每一索引都可以分为叶子节点段和非叶子节点段</li>
+</ul>
+<p>处于<code>FREE</code>、<code>FREE_FRAG</code>以及<code>FULL_FRAG</code>这三种状态的区都是独立的，直属于表空间。而处于<code>FSEG</code>状态的区是附属于某个段的。</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            回到页面顶部
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <!-- Copyright and theme information -->
+<div class="md-copyright">
+  
+  
+  Copyright © 2019-2023 <a href="https://kirklin.cn" target="_blank" rel="noopener">Kirk Lin</a> All Rights Reserved. <a href="https://kirklin.cn" target="_blank" rel="noopener">Kirk Lin</a> 版权所有
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+      
+      
+    
+    <a href="https://kirklin.github.io/PrivateNotes" target="_blank" rel="noopener" title="kirklin.github.io" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["content.code.annotate", "content.tooltips", "navigation.indexes", "navigation.instant", "navigation.sections", "navigation.tabs", "navigation.top", "navigation.tracking", "search.highlight", "search.suggest"], "search": "../../../../assets/javascripts/workers/search.e5c33ebb.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.ba449ae6.min.js"></script>
+      
+        <script src="../../../../CustomTheme/js/main.js"></script>
+      
+    
+  </body>
+</html>

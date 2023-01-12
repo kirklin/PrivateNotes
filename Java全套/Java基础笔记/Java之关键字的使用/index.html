@@ -1,0 +1,4906 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../Java%E4%B9%8BJava-8%E6%96%B0%E7%89%B9%E6%80%A7/">
+      
+      
+        <link rel="next" href="../Java%E4%B9%8B%E5%8F%8D%E5%B0%84/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.4">
+    
+    
+      
+        <title>Java之关键字的使用 - Kirk Lin的个人学习笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.9c788c91.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.2505c338.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../CustomTheme/css/main.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="light-green">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#java" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="Kirk Lin的个人学习笔记" class="md-header__button md-logo" aria-label="Kirk Lin的个人学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Kirk Lin的个人学习笔记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Java之关键字的使用
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="light-green"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+            </label>
+          
+        
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/kirklin/PrivateNotes" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kirklin/PrivateNotes
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../.." class="md-tabs__link">
+      笔记导航
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../GitHub%E6%96%B0%E6%89%8B%E6%8C%87%E5%8D%97/GitHub%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/" class="md-tabs__link">
+        GitHub新手指南
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../Gradle/" class="md-tabs__link md-tabs__link--active">
+        Java全套
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../%E5%89%8D%E7%AB%AF%E5%85%A8%E5%A5%97/JavaScript/JavaScript%E5%9F%BA%E7%A1%80/" class="md-tabs__link">
+        前端全套
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../%E7%AB%9E%E8%B5%9B%E6%8C%87%E5%8D%97/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E6%A8%A1%E6%9D%BF/" class="md-tabs__link">
+        竞赛指南
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/IO%E5%AD%90%E7%B3%BB%E7%BB%9F/" class="md-tabs__link">
+        计算机科学
+      </a>
+    </li>
+  
+
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Kirk Lin的个人学习笔记" class="md-nav__button md-logo" aria-label="Kirk Lin的个人学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Kirk Lin的个人学习笔记
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/kirklin/PrivateNotes" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kirklin/PrivateNotes
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        笔记导航
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2" tabindex="0" aria-expanded="false">
+          GitHub新手指南
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="GitHub新手指南" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          GitHub新手指南
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../GitHub%E6%96%B0%E6%89%8B%E6%8C%87%E5%8D%97/GitHub%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        GitHub是啥玩意？
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3" tabindex="0" aria-expanded="true">
+          Java全套
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Java全套" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Java全套
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3_1" type="checkbox" id="__nav_3_1" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Gradle/">Gradle</a>
+          
+            <label for="__nav_3_1">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Gradle" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_1">
+          <span class="md-nav__icon md-icon"></span>
+          Gradle
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Gradle/%E7%AC%AC01%E7%AB%A0_Gradle%E6%A6%82%E8%BF%B0/" class="md-nav__link">
+        第01章_Gradle概述.md
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Gradle/%E7%AC%AC02%E7%AB%A0_Gradle%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="md-nav__link">
+        第02章_Gradle环境搭建.md
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Gradle/%E7%AC%AC03%E7%AB%A0_Gradle%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        第03章_Gradle快速入门.md
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Gradle/%E7%AC%AC04%E7%AB%A0_Groovy%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        第04章_Groovy快速入门
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" >
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_2" tabindex="0" aria-expanded="false">
+          JDBC核心技术
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="JDBC核心技术" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          JDBC核心技术
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../JDBC%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF/JDBC%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        JDBC核心技术
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3_3" type="checkbox" id="__nav_3_3" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_3" tabindex="0" aria-expanded="false">
+          JavaWeb
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="JavaWeb" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          JavaWeb
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../JavaWeb/Filter/" class="md-nav__link">
+        过滤器笔记
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../JavaWeb/Listener/" class="md-nav__link">
+        监听器笔记
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../JavaWeb/Servlet/" class="md-nav__link">
+        Servlet笔记
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../JavaWeb/Thymeleaf/" class="md-nav__link">
+        Thymeleaf笔记
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../JavaWeb/%E4%BC%9A%E8%AF%9D%E6%8E%A7%E5%88%B6/" class="md-nav__link">
+        会话控制笔记
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3_4" type="checkbox" id="__nav_3_4" checked>
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_4" tabindex="0" aria-expanded="true">
+          Java基础笔记
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Java基础笔记" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          Java基础笔记
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Java%E4%B8%AD%E7%B1%BB%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/" class="md-nav__link">
+        Java中类的那些事
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Java%E4%B9%8BIO%E6%B5%81/" class="md-nav__link">
+        Java之IO流
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Java%E4%B9%8BJava-8%E6%96%B0%E7%89%B9%E6%80%A7/" class="md-nav__link">
+        Java之Java 8新特性
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Java之关键字的使用
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Java之关键字的使用
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#return-" class="md-nav__link">
+    一、关键字：return-- 跳出
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#this-" class="md-nav__link">
+    二、关键字：this-- 本类的
+  </a>
+  
+    <nav class="md-nav" aria-label="二、关键字：this-- 本类的">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1this" class="md-nav__link">
+    1.this 关键字概述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-this" class="md-nav__link">
+    2. this 关键字的使用
+  </a>
+  
+    <nav class="md-nav" aria-label="2. this 关键字的使用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-this" class="md-nav__link">
+    2.1 this 调用属性、方法：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-this" class="md-nav__link">
+    2.2 this 调用构造器：
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#super-" class="md-nav__link">
+    三、关键字：super-- 父类的
+  </a>
+  
+    <nav class="md-nav" aria-label="三、关键字：super-- 父类的">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-super" class="md-nav__link">
+    1. super 关键字概述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-super" class="md-nav__link">
+    2. super 关键字使用
+  </a>
+  
+    <nav class="md-nav" aria-label="2. super 关键字使用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21super" class="md-nav__link">
+    2.1super 调用属性、方法：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    2.2 在子类的方法或构造器中使用
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-super" class="md-nav__link">
+    2.3 super 调用构造器：
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-this-super" class="md-nav__link">
+    3. this 与 super 的区别
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#packageimport" class="md-nav__link">
+    四、关键字：package/import
+  </a>
+  
+    <nav class="md-nav" aria-label="四、关键字：package/import">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-package" class="md-nav__link">
+    1. package 关键字概述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 包结构应用举例
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-jdk" class="md-nav__link">
+    3. JDK 中的主要包介绍：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-import" class="md-nav__link">
+    4. import 的使用：
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#static-" class="md-nav__link">
+    五、关键字：static-- 静态的
+  </a>
+  
+    <nav class="md-nav" aria-label="五、关键字：static-- 静态的">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-static" class="md-nav__link">
+    1. Static 关键字简述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-static" class="md-nav__link">
+    2. static 关键字使用
+  </a>
+  
+    <nav class="md-nav" aria-label="2. static 关键字使用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21static" class="md-nav__link">
+    2.1static 修饰属性：静态变量（或类变量）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-static" class="md-nav__link">
+    2.2 static 修饰方法：静态方法、类方法
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-static" class="md-nav__link">
+    2.3. 如何判定属性和方法应该使用 static 关键字：
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    3. 单例模式
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 单例模式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    3.1 设计模式的说明
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    3.2 单例模式
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#final-" class="md-nav__link">
+    六、关键字：final-- 最终的
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#abstract-" class="md-nav__link">
+    七、关键字：abstract-- 抽象的
+  </a>
+  
+    <nav class="md-nav" aria-label="七、关键字：abstract-- 抽象的">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-abstract" class="md-nav__link">
+    1. abstract 关键字简述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-abstract" class="md-nav__link">
+    2. abstract 关键字的使用
+  </a>
+  
+    <nav class="md-nav" aria-label="2. abstract 关键字的使用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-abstract" class="md-nav__link">
+    2.1 abstract 修饰类：抽象类
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-abstract" class="md-nav__link">
+    2.2 abstract 修饰方法：抽象方法
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    3. 模板方法的设计模式
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 模板方法的设计模式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31_1" class="md-nav__link">
+    3.1 解决的问题
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32_1" class="md-nav__link">
+    3.2 应用举例
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    3.3 应用场景
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interface-" class="md-nav__link">
+    八、关键字：interface-- 接口
+  </a>
+  
+    <nav class="md-nav" aria-label="八、关键字：interface-- 接口">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1interface" class="md-nav__link">
+    1.interface 关键字简述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1interface_1" class="md-nav__link">
+    1.interface 关键字使用说明：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    2. 面向接口编程的思想
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-java8" class="md-nav__link">
+    3. Java8 中关于接口的新规范
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    4. 面试题：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    5. 代理模式
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 代理模式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    5.1. 解决的问题
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    5.2 应用场景
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53" class="md-nav__link">
+    5.3 分类
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    6. 工厂的设计模式
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Java%E4%B9%8B%E5%8F%8D%E5%B0%84/" class="md-nav__link">
+        Java之反射
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Java%E4%B9%8B%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/" class="md-nav__link">
+        Java之基本语法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Java%E4%B9%8B%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="md-nav__link">
+        Java之多线程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Java%E4%B9%8B%E5%B8%B8%E7%94%A8%E7%B1%BB/" class="md-nav__link">
+        Java之常用类
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Java%E4%B9%8B%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" class="md-nav__link">
+        Java之异常处理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Java%E4%B9%8B%E6%95%B0%E7%BB%84/" class="md-nav__link">
+        Java之数组
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Java%E4%B9%8B%E6%9E%9A%E4%B8%BE%E7%B1%BB%E5%92%8C%E6%B3%A8%E8%A7%A3/" class="md-nav__link">
+        Java之枚举类和注解
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Java%E4%B9%8B%E6%B3%9B%E5%9E%8B/" class="md-nav__link">
+        Java之泛型
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Java%E4%B9%8B%E7%BB%86%E8%AF%B4%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B8%89%E5%A4%A7%E7%89%B9%E5%BE%81/" class="md-nav__link">
+        Java之细说面向对象三大特征
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Java%E4%B9%8B%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" class="md-nav__link">
+        Java之网络编程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Java%E4%B9%8B%E9%9B%86%E5%90%88/" class="md-nav__link">
+        Java之集合
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Java%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0%E5%AF%BC%E8%88%AA/" class="md-nav__link">
+        Java基础笔记大纲
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3_5" type="checkbox" id="__nav_3_5" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_5" tabindex="0" aria-expanded="false">
+          Linux note
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Linux note" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_5">
+          <span class="md-nav__icon md-icon"></span>
+          Linux note
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux-note/Linux%E7%AC%94%E8%AE%B0%E5%AF%BC%E8%88%AA/" class="md-nav__link">
+        Linux笔记导航
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3_5_2" type="checkbox" id="__nav_3_5_2" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_5_2" tabindex="0" aria-expanded="false">
+          Shell编程
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Shell编程" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_5_2">
+          <span class="md-nav__icon md-icon"></span>
+          Shell编程
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux-note/shell%E7%BC%96%E7%A8%8B/5.10%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91/" class="md-nav__link">
+        Shell 输入/输出重定向
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux-note/shell%E7%BC%96%E7%A8%8B/5.11shell%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" class="md-nav__link">
+        Shell 文件包含
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux-note/shell%E7%BC%96%E7%A8%8B/5.1Shell%E7%AE%80%E4%BB%8B/" class="md-nav__link">
+        Shell简介
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux-note/shell%E7%BC%96%E7%A8%8B/5.2Shell%E5%8F%98%E9%87%8F/" class="md-nav__link">
+        Shell变量
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux-note/shell%E7%BC%96%E7%A8%8B/5.3Shell%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="md-nav__link">
+        Shell 字符串
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux-note/shell%E7%BC%96%E7%A8%8B/5.4Shell%E6%95%B0%E7%BB%84/" class="md-nav__link">
+        Shell数组
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux-note/shell%E7%BC%96%E7%A8%8B/5.5Shell%E8%BF%90%E7%AE%97%E7%AC%A6/" class="md-nav__link">
+        Shell运算符
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux-note/shell%E7%BC%96%E7%A8%8B/5.6Shell%E6%89%93%E5%8D%B0%E8%BE%93%E5%87%BA%E5%91%BD%E4%BB%A4/" class="md-nav__link">
+        Shell打印输出命令
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux-note/shell%E7%BC%96%E7%A8%8B/5.7Shelltest%E5%91%BD%E4%BB%A4/" class="md-nav__link">
+        Shell test 命令
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux-note/shell%E7%BC%96%E7%A8%8B/5.8Shell%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/" class="md-nav__link">
+        Shell 流程控制
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux-note/shell%E7%BC%96%E7%A8%8B/5.9Shell%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        Shell 函数
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3_5_3" type="checkbox" id="__nav_3_5_3" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_5_3" tabindex="0" aria-expanded="false">
+          课程笔记
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="课程笔记" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_5_3">
+          <span class="md-nav__icon md-icon"></span>
+          课程笔记
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux-note/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/1.1Linux%E8%AF%BE%E7%A8%8B%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        1.1Linux课程介绍
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux-note/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/2.1Linux%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        2.1Linux入门
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux-note/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/2.2Linux%E5%AE%89%E8%A3%85/" class="md-nav__link">
+        Linux安装
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux-note/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/2.3Linux%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/" class="md-nav__link">
+        2.3Linux目录结构
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux-note/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/3.10%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        3.10进程管理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux-note/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/3.11%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%28RPM%E5%92%8CYUM%29/" class="md-nav__link">
+        3.11包管理工具(RPM和YUM)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux-note/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/3.1%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95Linux%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        3.1远程登录Linux系统
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux-note/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/3.2vi%E5%92%8Cvim%E7%BC%96%E8%BE%91%E5%99%A8/" class="md-nav__link">
+        3.2vi和vim编辑器
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux-note/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/3.3%E5%85%B3%E6%9C%BA%E3%80%81%E9%87%8D%E5%90%AF%E5%92%8C%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95%E6%B3%A8%E9%94%80/" class="md-nav__link">
+        3.3关机、重启和用户登录注销
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux-note/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/3.4%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        3.4用户管理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux-note/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/3.5%E5%AE%9E%E7%94%A8%E6%8C%87%E4%BB%A4/" class="md-nav__link">
+        3.5实用指令
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux-note/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/3.6%E7%BB%84%E7%AE%A1%E7%90%86%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        3.6组管理和权限管理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux-note/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/3.7%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/" class="md-nav__link">
+        3.7定时任务调度
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux-note/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/3.8Linux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD%E5%BA%A6/" class="md-nav__link">
+        3.8Linux磁盘分区、挂载度
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux-note/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/3.9%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" class="md-nav__link">
+        3.9网络配置
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3_6" type="checkbox" id="__nav_3_6" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_6" tabindex="0" aria-expanded="false">
+          MySQL
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="MySQL" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_6">
+          <span class="md-nav__icon md-icon"></span>
+          MySQL
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3_6_1" type="checkbox" id="__nav_3_6_1" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../MySQL/MySQL%E5%9F%BA%E7%A1%80%E7%AF%87%E7%AC%94%E8%AE%B0/">MySQL基础篇笔记</a>
+          
+            <label for="__nav_3_6_1">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="MySQL基础篇笔记" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_6_1">
+          <span class="md-nav__icon md-icon"></span>
+          MySQL基础篇笔记
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/MySQL%E5%9F%BA%E7%A1%80%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC01%E7%AB%A0_%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A6%82%E8%BF%B0/" class="md-nav__link">
+        第01章_数据库概述
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/MySQL%E5%9F%BA%E7%A1%80%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC02%E7%AB%A0_MySQL%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" class="md-nav__link">
+        第02章_MySQL环境搭建
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/MySQL%E5%9F%BA%E7%A1%80%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC03%E7%AB%A0_%E5%9F%BA%E6%9C%AC%E7%9A%84SELECT%E8%AF%AD%E5%8F%A5/" class="md-nav__link">
+        第03章_基本的SELECT语句
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/MySQL%E5%9F%BA%E7%A1%80%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC04%E7%AB%A0_%E8%BF%90%E7%AE%97%E7%AC%A6/" class="md-nav__link">
+        第04章_运算符
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/MySQL%E5%9F%BA%E7%A1%80%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC05%E7%AB%A0_%E6%8E%92%E5%BA%8F%E4%B8%8E%E5%88%86%E9%A1%B5/" class="md-nav__link">
+        第05章_排序与分页
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/MySQL%E5%9F%BA%E7%A1%80%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC06%E7%AB%A0_%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/" class="md-nav__link">
+        第06章_多表查询
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/MySQL%E5%9F%BA%E7%A1%80%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC07%E7%AB%A0_%E5%8D%95%E8%A1%8C%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        第07章_单行函数
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/MySQL%E5%9F%BA%E7%A1%80%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC08%E7%AB%A0_%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        第08章_聚合函数
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/MySQL%E5%9F%BA%E7%A1%80%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC09%E7%AB%A0_%E5%AD%90%E6%9F%A5%E8%AF%A2/" class="md-nav__link">
+        第09章_子查询
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/MySQL%E5%9F%BA%E7%A1%80%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC10%E7%AB%A0_%E5%88%9B%E5%BB%BA%E5%92%8C%E7%AE%A1%E7%90%86%E8%A1%A8/" class="md-nav__link">
+        第10章_创建和管理表
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/MySQL%E5%9F%BA%E7%A1%80%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC11%E7%AB%A0_%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E4%B9%8B%E5%A2%9E%E5%88%A0%E6%94%B9/" class="md-nav__link">
+        第11章_数据处理之增删改
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/MySQL%E5%9F%BA%E7%A1%80%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC12%E7%AB%A0_MySQL%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%B2%BE%E8%AE%B2/" class="md-nav__link">
+        第12章_MySQL数据类型精讲
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/MySQL%E5%9F%BA%E7%A1%80%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC13%E7%AB%A0_%E7%BA%A6%E6%9D%9F/" class="md-nav__link">
+        第13章_约束
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/MySQL%E5%9F%BA%E7%A1%80%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC14%E7%AB%A0_%E8%A7%86%E5%9B%BE/" class="md-nav__link">
+        第14章_视图
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/MySQL%E5%9F%BA%E7%A1%80%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC15%E7%AB%A0_%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E4%B8%8E%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        第15章_存储过程与函数
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/MySQL%E5%9F%BA%E7%A1%80%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC16%E7%AB%A0_%E5%8F%98%E9%87%8F%E3%80%81%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6%E4%B8%8E%E6%B8%B8%E6%A0%87/" class="md-nav__link">
+        第16章_变量、流程控制与游标
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/MySQL%E5%9F%BA%E7%A1%80%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC17%E7%AB%A0_%E8%A7%A6%E5%8F%91%E5%99%A8/" class="md-nav__link">
+        第17章_触发器
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/MySQL%E5%9F%BA%E7%A1%80%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC18%E7%AB%A0_MySQL8%E5%85%B6%E5%AE%83%E6%96%B0%E7%89%B9%E6%80%A7/" class="md-nav__link">
+        第18章_MySQL8其它新特性
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3_6_2" type="checkbox" id="__nav_3_6_2" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../MySQL/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87%E7%AC%94%E8%AE%B0/">MySQL高级篇笔记</a>
+          
+            <label for="__nav_3_6_2">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="MySQL高级篇笔记" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_6_2">
+          <span class="md-nav__icon md-icon"></span>
+          MySQL高级篇笔记
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC01%E7%AB%A0%20Linux%E4%B8%8BMySQL%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        第01章 Linux下MySQL的安装与使用
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC02%E7%AB%A0%20MySQL%E7%9A%84%E6%95%B0%E6%8D%AE%E7%9B%AE%E5%BD%95/" class="md-nav__link">
+        第02章 MySQL的数据目录
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC03%E7%AB%A0%20%E7%94%A8%E6%88%B7%E4%B8%8E%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        第03章 用户与权限管理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC04%E7%AB%A0%20%E9%80%BB%E8%BE%91%E6%9E%B6%E6%9E%84/" class="md-nav__link">
+        第04章 逻辑架构
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC05%E7%AB%A0%20%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E/" class="md-nav__link">
+        第05章 存储引擎
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC06%E7%AB%A0%20%E7%B4%A2%E5%BC%95%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="md-nav__link">
+        第06章 索引的数据结构
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC07%E7%AB%A0%20InnoDB%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/" class="md-nav__link">
+        第07章 InnoDB数据存储结构
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC08%E7%AB%A0%20%E7%B4%A2%E5%BC%95%E7%9A%84%E5%88%9B%E5%BB%BA%E4%B8%8E%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" class="md-nav__link">
+        第08章 索引的创建与设计原则
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC09%E7%AB%A0%20%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        第09章 性能分析工具的使用
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC10%E7%AB%A0%20%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96%E4%B8%8E%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        第10章 索引优化与查询优化
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC11%E7%AB%A0%20%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        第11章 数据库的设计规范
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC12%E7%AB%A0%20%E6%95%B0%E6%8D%AE%E5%BA%93%E5%85%B6%E5%AE%83%E8%B0%83%E4%BC%98%E7%AD%96%E7%95%A5/" class="md-nav__link">
+        第12章 数据库其它调优策略
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC13%E7%AB%A0%20%E4%BA%8B%E5%8A%A1%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="md-nav__link">
+        第13章 事务基础知识
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC14%E7%AB%A0%20MySQL%E4%BA%8B%E5%8A%A1%E6%97%A5%E5%BF%97/" class="md-nav__link">
+        第14章 MySQL事务日志
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC15%E7%AB%A0%20%E9%94%81/" class="md-nav__link">
+        第15章 锁
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC16%E7%AB%A0%20%E5%A4%9A%E7%89%88%E6%9C%AC%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6/" class="md-nav__link">
+        第16章 多版本并发控制
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC17%E7%AB%A0%20%E5%85%B6%E5%AE%83%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%A5%E5%BF%97/" class="md-nav__link">
+        第17章 其它数据库日志
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC18%E7%AB%A0%20%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/" class="md-nav__link">
+        第18章 主从复制
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MySQL/MySQL%E9%AB%98%E7%BA%A7%E7%AF%87%E7%AC%94%E8%AE%B0/%E7%AC%AC19%E7%AB%A0%20%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/" class="md-nav__link">
+        第19章 数据库备份与恢复
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3_7" type="checkbox" id="__nav_3_7" >
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_7" tabindex="0" aria-expanded="false">
+          编码规范
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="编码规范" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_7">
+          <span class="md-nav__icon md-icon"></span>
+          编码规范
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/%E4%BB%A3%E7%A0%81%E9%A3%8E%E6%A0%BC%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        代码风格规范
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4" tabindex="0" aria-expanded="false">
+          前端全套
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="前端全套" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          前端全套
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_4_1" type="checkbox" id="__nav_4_1" >
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_1" tabindex="0" aria-expanded="false">
+          JavaScript
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="JavaScript" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_1">
+          <span class="md-nav__icon md-icon"></span>
+          JavaScript
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%89%8D%E7%AB%AF%E5%85%A8%E5%A5%97/JavaScript/JavaScript%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        JavaScript基础
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" >
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_2" tabindex="0" aria-expanded="false">
+          前端工程化
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="前端工程化" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          前端工程化
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_4_2_1" type="checkbox" id="__nav_4_2_1" >
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_2_1" tabindex="0" aria-expanded="false">
+          Webpack
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Webpack" data-md-level="3">
+        <label class="md-nav__title" for="__nav_4_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Webpack
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%89%8D%E7%AB%AF%E5%85%A8%E5%A5%97/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/Webpack/Webpack%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        Webpack入门
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5" tabindex="0" aria-expanded="false">
+          竞赛指南
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="竞赛指南" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          竞赛指南
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_5_1" type="checkbox" id="__nav_5_1" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5_1" tabindex="0" aria-expanded="false">
+          算法竞赛
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="算法竞赛" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_1">
+          <span class="md-nav__icon md-icon"></span>
+          算法竞赛
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%AB%9E%E8%B5%9B%E6%8C%87%E5%8D%97/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E6%A8%A1%E6%9D%BF/" class="md-nav__link">
+        快速排序算法模板
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%AB%9E%E8%B5%9B%E6%8C%87%E5%8D%97/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B/%E7%94%B1%E6%95%B0%E6%8D%AE%E8%8C%83%E5%9B%B4%E5%8F%8D%E6%8E%A8%E7%AE%97%E6%B3%95%E5%A4%8D%E6%9D%82%E5%BA%A6%E4%BB%A5%E5%8F%8A%E7%AE%97%E6%B3%95%E5%86%85%E5%AE%B9/" class="md-nav__link">
+        由数据范围反推算法复杂度以及算法内容
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_5_2" type="checkbox" id="__nav_5_2" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5_2" tabindex="0" aria-expanded="false">
+          软件测试大赛
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="软件测试大赛" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_2">
+          <span class="md-nav__icon md-icon"></span>
+          软件测试大赛
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_5_2_1" type="checkbox" id="__nav_5_2_1" >
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5_2_1" tabindex="0" aria-expanded="false">
+          Selenium Java
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Selenium Java" data-md-level="3">
+        <label class="md-nav__title" for="__nav_5_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Selenium Java
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%AB%9E%E8%B5%9B%E6%8C%87%E5%8D%97/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E5%A4%A7%E8%B5%9B/Selenium_Java/%E8%AF%A6%E8%A7%A3%E4%BB%8B%E7%BB%8DSelenium%E5%B8%B8%E7%94%A8API%E7%9A%84%E4%BD%BF%E7%94%A8Java%E8%AF%AD%E8%A8%80/" class="md-nav__link">
+        详解介绍Selenium常用API的使用Java语言
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_5_2_2" type="checkbox" id="__nav_5_2_2" >
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5_2_2" tabindex="0" aria-expanded="false">
+          Selenium Python
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Selenium Python" data-md-level="3">
+        <label class="md-nav__title" for="__nav_5_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Selenium Python
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%AB%9E%E8%B5%9B%E6%8C%87%E5%8D%97/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E5%A4%A7%E8%B5%9B/Selenium_Python/%E8%AF%A6%E8%A7%A3%E4%BB%8B%E7%BB%8DSelenium%E5%B8%B8%E7%94%A8API%E7%9A%84%E4%BD%BF%E7%94%A8Python%E8%AF%AD%E8%A8%80/" class="md-nav__link">
+        详解介绍Selenium常用API的使用Python语言
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_6" tabindex="0" aria-expanded="false">
+          计算机科学
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="计算机科学" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          计算机科学
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_6_1" type="checkbox" id="__nav_6_1" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_6_1" tabindex="0" aria-expanded="false">
+          计算机操作系统
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="计算机操作系统" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_1">
+          <span class="md-nav__icon md-icon"></span>
+          计算机操作系统
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/IO%E5%AD%90%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        I/O设备的机械部件
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E4%BF%A1%E5%8F%B7%E9%87%8F%E4%B8%8E%E7%AE%A1%E7%A8%8B/" class="md-nav__link">
+        信号量机制
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%86%85%E5%AD%98%E7%A9%BA%E9%97%B4%E7%9A%84%E6%89%A9%E5%85%85/" class="md-nav__link">
+        内存空间的扩充
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%8A%A8%E6%80%81%E5%88%86%E5%8C%BA%E5%88%86%E9%85%8D%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        动态分区分配算法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%90%8C%E6%AD%A5%E4%BA%92%E6%96%A5/" class="md-nav__link">
+        进程同步互斥
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E5%90%AF%E5%8A%A8%E3%80%81%E4%B8%AD%E6%96%AD%E3%80%81%E5%BC%82%E5%B8%B8%E5%92%8C%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/" class="md-nav__link">
+        启动、中断、异常和系统调用
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/" class="md-nav__link">
+        操作系统概述
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        文件的逻辑结构
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%AD%BB%E9%94%81%E5%92%8C%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1/" class="md-nav__link">
+        死锁的概念
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E7%89%A9%E7%90%86%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%EF%BC%9A%E8%BF%9E%E7%BB%AD%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/" class="md-nav__link">
+        物理内存管理：连续内存分配
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E7%89%A9%E7%90%86%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%EF%BC%9A%E9%9D%9E%E8%BF%9E%E7%BB%AD%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/" class="md-nav__link">
+        物理内存管理：非连续内存分配
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%90%86%E8%AE%BA%E7%AC%94%E8%AE%B0%E5%AF%BC%E8%88%AA/" class="md-nav__link">
+        计算机操作系统理论笔记大纲
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B/" class="md-nav__link">
+        进程和线程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6/" class="md-nav__link">
+        进程调度
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        进程调度算法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95%E4%B8%8E%E9%A1%B5%E9%9D%A2%E5%88%86%E9%85%8D%E7%AD%96%E7%95%A5/" class="md-nav__link">
+        页面置换算法与页面分配策略
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#return-" class="md-nav__link">
+    一、关键字：return-- 跳出
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#this-" class="md-nav__link">
+    二、关键字：this-- 本类的
+  </a>
+  
+    <nav class="md-nav" aria-label="二、关键字：this-- 本类的">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1this" class="md-nav__link">
+    1.this 关键字概述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-this" class="md-nav__link">
+    2. this 关键字的使用
+  </a>
+  
+    <nav class="md-nav" aria-label="2. this 关键字的使用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-this" class="md-nav__link">
+    2.1 this 调用属性、方法：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-this" class="md-nav__link">
+    2.2 this 调用构造器：
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#super-" class="md-nav__link">
+    三、关键字：super-- 父类的
+  </a>
+  
+    <nav class="md-nav" aria-label="三、关键字：super-- 父类的">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-super" class="md-nav__link">
+    1. super 关键字概述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-super" class="md-nav__link">
+    2. super 关键字使用
+  </a>
+  
+    <nav class="md-nav" aria-label="2. super 关键字使用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21super" class="md-nav__link">
+    2.1super 调用属性、方法：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    2.2 在子类的方法或构造器中使用
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-super" class="md-nav__link">
+    2.3 super 调用构造器：
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-this-super" class="md-nav__link">
+    3. this 与 super 的区别
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#packageimport" class="md-nav__link">
+    四、关键字：package/import
+  </a>
+  
+    <nav class="md-nav" aria-label="四、关键字：package/import">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-package" class="md-nav__link">
+    1. package 关键字概述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 包结构应用举例
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-jdk" class="md-nav__link">
+    3. JDK 中的主要包介绍：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-import" class="md-nav__link">
+    4. import 的使用：
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#static-" class="md-nav__link">
+    五、关键字：static-- 静态的
+  </a>
+  
+    <nav class="md-nav" aria-label="五、关键字：static-- 静态的">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-static" class="md-nav__link">
+    1. Static 关键字简述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-static" class="md-nav__link">
+    2. static 关键字使用
+  </a>
+  
+    <nav class="md-nav" aria-label="2. static 关键字使用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21static" class="md-nav__link">
+    2.1static 修饰属性：静态变量（或类变量）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-static" class="md-nav__link">
+    2.2 static 修饰方法：静态方法、类方法
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-static" class="md-nav__link">
+    2.3. 如何判定属性和方法应该使用 static 关键字：
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    3. 单例模式
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 单例模式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    3.1 设计模式的说明
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    3.2 单例模式
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#final-" class="md-nav__link">
+    六、关键字：final-- 最终的
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#abstract-" class="md-nav__link">
+    七、关键字：abstract-- 抽象的
+  </a>
+  
+    <nav class="md-nav" aria-label="七、关键字：abstract-- 抽象的">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-abstract" class="md-nav__link">
+    1. abstract 关键字简述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-abstract" class="md-nav__link">
+    2. abstract 关键字的使用
+  </a>
+  
+    <nav class="md-nav" aria-label="2. abstract 关键字的使用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-abstract" class="md-nav__link">
+    2.1 abstract 修饰类：抽象类
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-abstract" class="md-nav__link">
+    2.2 abstract 修饰方法：抽象方法
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    3. 模板方法的设计模式
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 模板方法的设计模式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31_1" class="md-nav__link">
+    3.1 解决的问题
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32_1" class="md-nav__link">
+    3.2 应用举例
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    3.3 应用场景
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interface-" class="md-nav__link">
+    八、关键字：interface-- 接口
+  </a>
+  
+    <nav class="md-nav" aria-label="八、关键字：interface-- 接口">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1interface" class="md-nav__link">
+    1.interface 关键字简述
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1interface_1" class="md-nav__link">
+    1.interface 关键字使用说明：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    2. 面向接口编程的思想
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-java8" class="md-nav__link">
+    3. Java8 中关于接口的新规范
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    4. 面试题：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    5. 代理模式
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 代理模式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    5.1. 解决的问题
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    5.2 应用场景
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53" class="md-nav__link">
+    5.3 分类
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    6. 工厂的设计模式
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+
+<div class="toc">
+<ul>
+<li><a href="#java">Java 之关键字的使用</a><ul>
+<li><a href="#return-">一、关键字：return-- 跳出</a></li>
+<li><a href="#this-">二、关键字：this-- 本类的</a><ul>
+<li><a href="#1this">1.this 关键字概述</a></li>
+<li><a href="#2-this">2. this 关键字的使用</a><ul>
+<li><a href="#21-this">2.1 this 调用属性、方法：</a></li>
+<li><a href="#22-this">2.2 this 调用构造器：</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#super-">三、关键字：super-- 父类的</a><ul>
+<li><a href="#1-super">1. super 关键字概述</a></li>
+<li><a href="#2-super">2. super 关键字使用</a><ul>
+<li><a href="#21super">2.1super 调用属性、方法：</a></li>
+<li><a href="#22">2.2 在子类的方法或构造器中使用</a></li>
+<li><a href="#23-super">2.3 super 调用构造器：</a></li>
+</ul>
+</li>
+<li><a href="#3-this-super">3. this 与 super 的区别</a></li>
+</ul>
+</li>
+<li><a href="#packageimport">四、关键字：package/import</a><ul>
+<li><a href="#1-package">1. package 关键字概述</a></li>
+<li><a href="#2">2. 包结构应用举例</a></li>
+<li><a href="#3-jdk">3. JDK 中的主要包介绍：</a></li>
+<li><a href="#4-import">4. import 的使用：</a></li>
+</ul>
+</li>
+<li><a href="#static-">五、关键字：static-- 静态的</a><ul>
+<li><a href="#1-static">1. Static 关键字简述</a></li>
+<li><a href="#2-static">2. static 关键字使用</a><ul>
+<li><a href="#21static">2.1static 修饰属性：静态变量（或类变量）</a></li>
+<li><a href="#22-static">2.2 static 修饰方法：静态方法、类方法</a></li>
+<li><a href="#23-static">2.3. 如何判定属性和方法应该使用 static 关键字：</a></li>
+</ul>
+</li>
+<li><a href="#3">3. 单例模式</a><ul>
+<li><a href="#31">3.1 设计模式的说明</a></li>
+<li><a href="#32">3.2 单例模式</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#final-">六、关键字：final-- 最终的</a></li>
+<li><a href="#abstract-">七、关键字：abstract-- 抽象的</a><ul>
+<li><a href="#1-abstract">1. abstract 关键字简述</a></li>
+<li><a href="#2-abstract">2. abstract 关键字的使用</a><ul>
+<li><a href="#21-abstract">2.1 abstract 修饰类：抽象类</a></li>
+<li><a href="#22-abstract">2.2 abstract 修饰方法：抽象方法</a></li>
+</ul>
+</li>
+<li><a href="#3_1">3. 模板方法的设计模式</a><ul>
+<li><a href="#31_1">3.1 解决的问题</a></li>
+<li><a href="#32_1">3.2 应用举例</a></li>
+<li><a href="#33">3.3 应用场景</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#interface-">八、关键字：interface-- 接口</a><ul>
+<li><a href="#1interface">1.interface 关键字简述</a></li>
+<li><a href="#1interface_1">1.interface 关键字使用说明：</a></li>
+<li><a href="#2_1">2. 面向接口编程的思想</a></li>
+<li><a href="#3-java8">3. Java8 中关于接口的新规范</a></li>
+<li><a href="#4">4. 面试题：</a></li>
+<li><a href="#5">5. 代理模式</a><ul>
+<li><a href="#51">5.1. 解决的问题</a></li>
+<li><a href="#52">5.2 应用场景</a></li>
+<li><a href="#53">5.3 分类</a></li>
+</ul>
+</li>
+<li><a href="#6">6. 工厂的设计模式</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h1 id="java">Java 之关键字的使用<a class="headerlink" href="#java" title="Permanent link">&para;</a></h1>
+<p>java 中有很多的关键字，他们的使用让 Java 语言变得更加灵活、易用，下面将介绍 Java 中最常用的几个关键字并说明其用法。</p>
+<h2 id="return-">一、关键字：return-- 跳出<a class="headerlink" href="#return-" title="Permanent link">&para;</a></h2>
+<ul>
+<li>使用在方法体中，用于：① 结束方法② 针对于返回值类型的方法，使用 "return 数据" 方法返回所要的数据。</li>
+<li>return 关键字后面不可以声明执行语句。</li>
+<li>在异常处理中 try-catch-finally 的结构中，如果 try 或 catch 中的结构中写了 return，但是 finally 中的结构仍会执行。</li>
+</ul>
+<h2 id="this-">二、关键字：this-- 本类的<a class="headerlink" href="#this-" title="Permanent link">&para;</a></h2>
+<h3 id="1this">1.this 关键字概述<a class="headerlink" href="#1this" title="Permanent link">&para;</a></h3>
+<p>this 理解为：当前对象 或 当前正在创建的对象，可以调用的结构：<strong><em>属性、方法；构造器</em></strong></p>
+<h3 id="2-this">2. this 关键字的使用<a class="headerlink" href="#2-this" title="Permanent link">&para;</a></h3>
+<h4 id="21-this">2.1 this 调用属性、方法：<a class="headerlink" href="#21-this" title="Permanent link">&para;</a></h4>
+<ul>
+<li>在类的方法中，我们可以使用 "this. 属性" 或 "this. 方法" 的方式，调用当前对象属性或方法。但是，通常情况下，我们都择省略 "this."。特殊情况下，如果 *** 方法的形参和类的属性同名时 ***，我们必须显式的使用 "this. 变量" 的方式，表明此变量是属性，而非形参。</li>
+<li>在类的构造器中，我们可以使用 "this. 属性" 或 "this. 方法" 的方式，调用当前正在创建的对象属性或方法。但是，通常情况下，我们都择省略 "this."。特殊情况下，如果 *** 构造器的形参和类的属性同名 *** 时，我们必须显式的使用 "this. 变量" 的方式，表明此变量是属性，而非形参。</li>
+</ul>
+<h4 id="22-this">2.2 this 调用构造器：<a class="headerlink" href="#22-this" title="Permanent link">&para;</a></h4>
+<p>① 我们在类的构造器中，可以显式的使用 <strong><em>"this(形参列表)"</em></strong> 方式，调用本类中指定的其他构造器</p>
+<p>② 构造器中不能通过 "this(形参列表)" 方式调用自己</p>
+<p>③ 如果一个类中有 n 个构造器，则最多有 n - 1 构造器中使用了 "this(形参列表)"</p>
+<p>④ 规定："this(形参列表)" <strong><em>必须声明在当前构造器的首行</em></strong></p>
+<p>⑤ <strong>构造器内部，最多只能声明一个 "this(形参列表)"</strong>，用来调用其他的构造器</p>
+<h2 id="super-">三、关键字：super-- 父类的<a class="headerlink" href="#super-" title="Permanent link">&para;</a></h2>
+<h3 id="1-super">1. super 关键字概述<a class="headerlink" href="#1-super" title="Permanent link">&para;</a></h3>
+<p>super 关键字可以理解为：父类的，可以用来调用的结构：<strong><em>属性、方法、构造器</em></strong></p>
+<ul>
+<li>尤其当子父类出现同名成员时，可以用 supe 表明调用的是父类中的成员</li>
+<li>super 的追溯不仅限于直接父类</li>
+<li>super 和 this 的用法相像，this 代表本类对象的引用， super 代表父类的内存空间的标识</li>
+</ul>
+<h3 id="2-super">2. super 关键字使用<a class="headerlink" href="#2-super" title="Permanent link">&para;</a></h3>
+<h4 id="21super">2.1super 调用属性、方法：<a class="headerlink" href="#21super" title="Permanent link">&para;</a></h4>
+<p>与 this 关键字使用方式相同，只不过调用的是父类的属性</p>
+<h4 id="22">2.2 在子类的方法或构造器中使用<a class="headerlink" href="#22" title="Permanent link">&para;</a></h4>
+<p>通过使用 "super. 属性" 或 "super. 方法" 的方式，显式的调用父类中声明的属性或方法。但是，通常情况下，我们习惯省略 "super."</p>
+<p><strong>特殊情况</strong></p>
+<ul>
+<li>当子类和父类中定义了同名的属性时，我们要想在子类中调用父类中声明的属性，则必须显式的使用 "super. 属性" 的方式，表明调用的是父类中声明的属性。</li>
+<li>当子类重写了父类中的方法以后，我们想在子类的方法中调用父类中被重写的方法时，则必须显式的使用 "super. 方法" 的方式，表明调用的是父类中被重写的方法。</li>
+</ul>
+<h4 id="23-super">2.3 super 调用构造器：<a class="headerlink" href="#23-super" title="Permanent link">&para;</a></h4>
+<ul>
+<li>我们可以在子类的构造器中显式的使用 "super(形参列表)" 的方式，调用父类中声明的指定的构造器</li>
+<li>"super(形参列表)" 的使用，必须声明在子类构造器的首行！</li>
+<li>我们在类的构造器中，针对于 "this(形参列表)" 或 "super(形参列表)" 只能二选一，不能同时出现</li>
+<li>在构造器的首行，没显式的声明 "this(形参列表)" 或 "super(形参列表)"，则默认调用的是父类中空参的构造器：super()</li>
+<li>在类的多个构造器中，至少一个类的构造器中使用了 "super(形参列表)"，调用父类中的构造器</li>
+</ul>
+<h3 id="3-this-super">3. this 与 super 的区别<a class="headerlink" href="#3-this-super" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>区别点</th>
+<th>this</th>
+<th>super</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>访问属性</td>
+<td>访问本类中的属性，如果本类没有此属性则从父类中继续查找</td>
+<td>直接访问父类中的属性</td>
+</tr>
+<tr>
+<td>调用方法</td>
+<td>访问本类中的方法，如果本类没有此方法则从父类中继续查找</td>
+<td>直接访问父类中的方法</td>
+</tr>
+<tr>
+<td>调用构造器</td>
+<td>调用本类构造器，必须放在构造器的首行</td>
+<td>调用父类构造器，必须放在子类构造器的首行</td>
+</tr>
+</tbody>
+</table>
+<h2 id="packageimport">四、关键字：package/import<a class="headerlink" href="#packageimport" title="Permanent link">&para;</a></h2>
+<h3 id="1-package">1. package 关键字概述<a class="headerlink" href="#1-package" title="Permanent link">&para;</a></h3>
+<ol>
+<li>为了更好的实现项目中类的管理，提供包的概念</li>
+<li>使用 package 声明类或接口所属的包，声明在源文件的首行</li>
+<li>包，属于标识符，遵循标识符的命名规则、规范 (xxxyyyzzz)、“见名知意”</li>
+<li>每 "." 一次，就代表一层文件目录。</li>
+</ol>
+<h3 id="2">2. 包结构应用举例<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<p><strong>MVC 设计模式</strong></p>
+<p><img alt="img" src="../imgs/20200327145213.png" /></p>
+<h3 id="3-jdk">3. JDK 中的主要包介绍：<a class="headerlink" href="#3-jdk" title="Permanent link">&para;</a></h3>
+<ul>
+<li>java. lang-- 包含一些 Java 语言的核心类，如 String、Math、 integer、 System 和 Thread，提供常用功能</li>
+<li>java. net-- 包含执行与网络相关的操作的类和接口</li>
+<li>java.io-- 包含能提供多种输入 / 输出功能的类</li>
+<li>java util-- 包含一些实用工具类，如定义系统特性、接口的集合框架类、使用与日期日历相关的函数。</li>
+<li>java. text-- 包含了一些 java 格式化相关的类</li>
+<li>java.sql-- 包含了 java 进行 JDBC 数据库编程的相关类 / 接口</li>
+<li>java. awt-- 包含了构成抽象窗口工具集 (abstract window toolkits）的多个类，这些类被用来构建和管理应用程序的图形用户界面 GU）。 B/S C/S</li>
+</ul>
+<h3 id="4-import">4. import 的使用：<a class="headerlink" href="#4-import" title="Permanent link">&para;</a></h3>
+<ol>
+<li>在源文件中显式的使用 import 结构导入指定包下的类、接口</li>
+<li>声明在包的声明和类的声明之间</li>
+<li>如果需要导入多个结构，则并列写出即可</li>
+<li>可以使用 "xxx.*" 的方式，表示可以导入 xxx 包下的所结构</li>
+<li>如果使用的类或接口是 java.lang 包下定义的，则可以省略 import 结构</li>
+<li>如果使用的类或接口是本包下定义的，则可以省略 import 结构</li>
+<li>如果在源文件中，使用了不同包下的同名的类，则必须至少一个类需要以全类名的方式显示。</li>
+<li>使用 "xxx.*" 方式表明可以调用 xxx 包下的所结构。但是如果使用的是 xxx 子包下的结构，则仍需要显式导入</li>
+<li>import static: 导入指定类或接口中的静态结构: 属性或方法。</li>
+</ol>
+<h2 id="static-">五、关键字：static-- 静态的<a class="headerlink" href="#static-" title="Permanent link">&para;</a></h2>
+<h3 id="1-static">1. Static 关键字简述<a class="headerlink" href="#1-static" title="Permanent link">&para;</a></h3>
+<p>主要用来修饰类的内部结构，如：属性、方法、代码块、内部类</p>
+<h3 id="2-static">2. static 关键字使用<a class="headerlink" href="#2-static" title="Permanent link">&para;</a></h3>
+<h4 id="21static">2.1static 修饰属性：静态变量（或类变量）<a class="headerlink" href="#21static" title="Permanent link">&para;</a></h4>
+<p>属性是否使用 static 修饰，可分为：静态属性 vs 非静态属性 (实例变量)</p>
+<ul>
+<li>实例变量：我们创建了类的多个对象，每个对象都独立的拥一套类中的非静态属性。当修改其中一个对象中的非静态属性时，不会导致其他对象中同样的属性值的修改。</li>
+<li>静态变量：我们创建了类的多个对象，多个对象共享同一个静态变量。当通过某一个对象修改静态变量时，会导致其他对象调用此静态变量时，是修改过了的。</li>
+</ul>
+<p><strong>static 修饰属性的其他说明：</strong></p>
+<ul>
+<li>静态变量随着类的加载而加载。可以通过 "类. 静态变量" 的方式进行调用</li>
+<li>静态变量的加载要早于对象的创建。</li>
+<li>由于类只会加载一次，则静态变量在内存中也只会存在一份：存在方法区的静态域中。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>类变量</th>
+<th>实例变量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>类</td>
+<td>yes</td>
+<td>no</td>
+</tr>
+<tr>
+<td>对象</td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+</tbody>
+</table>
+<p><strong>静态属性举例：System.out; Math.PI;</strong></p>
+<p><strong>静态变量内存解析：</strong></p>
+<p><img alt="img" src="../imgs/20200404211211.png" /></p>
+<h4 id="22-static">2.2 static 修饰方法：静态方法、类方法<a class="headerlink" href="#22-static" title="Permanent link">&para;</a></h4>
+<ul>
+<li>随着类的加载而加载，可以通过 "类. 静态方法" 的方式进行调用</li>
+<li>静态方法中，只能调用静态的方法或属性</li>
+<li>非静态方法中，既可以调用非静态的方法或属性，也可以调用静态的方法或属性</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>静态方法</th>
+<th>非静态方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>类</td>
+<td>yes</td>
+<td>no</td>
+</tr>
+<tr>
+<td>对象</td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+</tbody>
+</table>
+<p><strong>使用的注意点：</strong></p>
+<ul>
+<li>在静态的方法内，不能使用 this 关键字、super 关键字</li>
+<li>关于静态属性和静态方法的使用，大家都从生命周期的角度去理解。</li>
+</ul>
+<h4 id="23-static">2.3. 如何判定属性和方法应该使用 static 关键字：<a class="headerlink" href="#23-static" title="Permanent link">&para;</a></h4>
+<p><strong>关于属性：</strong></p>
+<ul>
+<li>属性是可以被多个对象所共享的，不会随着对象的不同而不同的。</li>
+<li>类中的常量也常常声明为 static</li>
+</ul>
+<p><strong>关于方法：</strong></p>
+<ul>
+<li>操作静态属性的方法，通常设置为 static 的</li>
+<li>工具类中的方法，习惯上声明为 static 的。 比如：Math、Arrays、Collections</li>
+</ul>
+<p>**使用举例：**记录创建的圆的个数</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kd">class</span> <span class="nc">Circle</span><span class="p">{</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">radius</span><span class="p">;</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">id</span><span class="p">;</span><span class="c1">//自动赋值</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">Circle</span><span class="p">(){</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">        </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">init</span><span class="o">++</span><span class="p">;</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">        </span><span class="n">total</span><span class="o">++</span><span class="p">;</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">Circle</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">radius</span><span class="p">){</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">        </span><span class="k">this</span><span class="p">();</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="c1">//      id = init++;</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="c1">//      total++;</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">radius</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">radius</span><span class="p">;</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">total</span><span class="p">;</span><span class="c1">//记录创建的圆的个数</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1001</span><span class="p">;</span><span class="c1">//static声明的属性被所对象所共享</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">findArea</span><span class="p">(){</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mf">3.14</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">radius</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">radius</span><span class="p">;</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">getRadius</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">radius</span><span class="p">;</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">setRadius</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">radius</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">radius</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">radius</span><span class="p">;</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">getId</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">id</span><span class="p">;</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a>
+<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">getTotal</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">total</span><span class="p">;</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a>
+<a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="3">3. 单例模式<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<h4 id="31">3.1 设计模式的说明<a class="headerlink" href="#31" title="Permanent link">&para;</a></h4>
+<p>设计模式是在大量的实践中总结和理论化之后优的代码结构、编程风格、以及解决问题的思考方式。</p>
+<p><strong>常用设计模式 --- 23 种经典的设计模式 GOF</strong></p>
+<ul>
+<li>创建型模式，共 5 种：工厂方法模式、抽象工厂模式、单例模式、建造者模式、原型模式。</li>
+<li>结构型模式，共 7 种：适配器模式、装饰器模式、代理模式、外观模式、桥接模式、组合模式、享元模式。</li>
+<li>行为型模式，共 11 种：策略模式、模板方法模式、观察者模式、迭代器模式、责任链模式、命令模式、备忘录模式、状态模式、访问者模式、中介者模式、解释器模式。</li>
+</ul>
+<h4 id="32">3.2 单例模式<a class="headerlink" href="#32" title="Permanent link">&para;</a></h4>
+<p>所谓类的单例设计模式，就是采取一定的方法保证在整个的软件系统中，对某个类只能存在一个对象实例。</p>
+<p><strong>代码实现：</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">饿汉式1</span><span class="err">：</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kd">class</span> <span class="nc">Bank</span><span class="p">{</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="c1">//1.私化类的构造器</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="nf">Bank</span><span class="p">(){</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="c1">//2.内部创建类的对象</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="c1">//4.要求此对象也必须声明为静态的</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Bank</span><span class="w"> </span><span class="n">instance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Bank</span><span class="p">();</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">    </span><span class="c1">//3.提供公共的静态的方法，返回类的对象</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Bank</span><span class="w"> </span><span class="nf">getInstance</span><span class="p">(){</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">instance</span><span class="p">;</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="p">}</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="n">饿汉式2</span><span class="err">：</span><span class="n">使用了静态代码块</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="kd">class</span> <span class="nc">Order</span><span class="p">{</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="w">    </span><span class="c1">//1.私化类的构造器</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="nf">Order</span><span class="p">(){</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="w">    </span><span class="c1">//2.声明当前类对象，没初始化</span>
+<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a><span class="w">    </span><span class="c1">//4.此对象也必须声明为static的</span>
+<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Order</span><span class="w"> </span><span class="n">instance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>
+<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a><span class="w">    </span><span class="kd">static</span><span class="p">{</span>
+<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a><span class="w">        </span><span class="n">instance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Order</span><span class="p">();</span>
+<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>
+<a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a><span class="w">    </span><span class="c1">//3.声明public、static的返回当前类对象的方法</span>
+<a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Order</span><span class="w"> </span><span class="nf">getInstance</span><span class="p">(){</span>
+<a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">instance</span><span class="p">;</span>
+<a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a>
+<a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a><span class="p">}</span>
+<a id="__codelineno-1-41" name="__codelineno-1-41" href="#__codelineno-1-41"></a>
+<a id="__codelineno-1-42" name="__codelineno-1-42" href="#__codelineno-1-42"></a><span class="c1">//懒汉式：</span>
+<a id="__codelineno-1-43" name="__codelineno-1-43" href="#__codelineno-1-43"></a><span class="kd">class</span> <span class="nc">Order</span><span class="p">{</span>
+<a id="__codelineno-1-44" name="__codelineno-1-44" href="#__codelineno-1-44"></a>
+<a id="__codelineno-1-45" name="__codelineno-1-45" href="#__codelineno-1-45"></a><span class="w">    </span><span class="c1">//1.私化类的构造器</span>
+<a id="__codelineno-1-46" name="__codelineno-1-46" href="#__codelineno-1-46"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="nf">Order</span><span class="p">(){</span>
+<a id="__codelineno-1-47" name="__codelineno-1-47" href="#__codelineno-1-47"></a>
+<a id="__codelineno-1-48" name="__codelineno-1-48" href="#__codelineno-1-48"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-49" name="__codelineno-1-49" href="#__codelineno-1-49"></a>
+<a id="__codelineno-1-50" name="__codelineno-1-50" href="#__codelineno-1-50"></a><span class="w">    </span><span class="c1">//2.声明当前类对象，没初始化</span>
+<a id="__codelineno-1-51" name="__codelineno-1-51" href="#__codelineno-1-51"></a><span class="w">    </span><span class="c1">//4.此对象也必须声明为static的</span>
+<a id="__codelineno-1-52" name="__codelineno-1-52" href="#__codelineno-1-52"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Order</span><span class="w"> </span><span class="n">instance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<a id="__codelineno-1-53" name="__codelineno-1-53" href="#__codelineno-1-53"></a>
+<a id="__codelineno-1-54" name="__codelineno-1-54" href="#__codelineno-1-54"></a><span class="w">    </span><span class="c1">//3.声明public、static的返回当前类对象的方法</span>
+<a id="__codelineno-1-55" name="__codelineno-1-55" href="#__codelineno-1-55"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Order</span><span class="w"> </span><span class="nf">getInstance</span><span class="p">(){</span>
+<a id="__codelineno-1-56" name="__codelineno-1-56" href="#__codelineno-1-56"></a>
+<a id="__codelineno-1-57" name="__codelineno-1-57" href="#__codelineno-1-57"></a><span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">instance</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">){</span>
+<a id="__codelineno-1-58" name="__codelineno-1-58" href="#__codelineno-1-58"></a>
+<a id="__codelineno-1-59" name="__codelineno-1-59" href="#__codelineno-1-59"></a><span class="w">            </span><span class="n">instance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Order</span><span class="p">();</span>
+<a id="__codelineno-1-60" name="__codelineno-1-60" href="#__codelineno-1-60"></a>
+<a id="__codelineno-1-61" name="__codelineno-1-61" href="#__codelineno-1-61"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-1-62" name="__codelineno-1-62" href="#__codelineno-1-62"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">instance</span><span class="p">;</span>
+<a id="__codelineno-1-63" name="__codelineno-1-63" href="#__codelineno-1-63"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-1-64" name="__codelineno-1-64" href="#__codelineno-1-64"></a>
+<a id="__codelineno-1-65" name="__codelineno-1-65" href="#__codelineno-1-65"></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>两种方式的对比</strong>：</p>
+<ul>
+<li>饿汉式：上来就创建对象</li>
+<li>坏处：对象加载时间过长。</li>
+<li>好处：饿汉式是线程安全的</li>
+<li>懒汉式：什么时候用什么时候造对象</li>
+<li>好处：延迟对象的创建。</li>
+<li>目前的写法坏处：线程不安全。---&gt; 到多线程内容时，再修改</li>
+</ul>
+<h2 id="final-">六、关键字：final-- 最终的<a class="headerlink" href="#final-" title="Permanent link">&para;</a></h2>
+<p><strong>可以用来修饰：类、方法、变量</strong></p>
+<ol>
+<li>final 用来修饰一个类: 此类不能被其他类所继承。</li>
+</ol>
+<p>比如：String 类、System 类、StringBuffer 类</p>
+<ol>
+<li>final 用来修饰方法：表明此方法不可以被重写</li>
+</ol>
+<p>比如：Object 类中 getClass();</p>
+<ol>
+<li>
+<p>final 用来修饰变量：此时的 "变量" 就称为是一个常量</p>
+</li>
+<li>
+<p>final 修饰属性：可以考虑赋值的位置：显式初始化、代码块中初始化、构造器中初始化</p>
+</li>
+<li>
+<p>final 修饰局部变量：尤其是使用 final 修饰形参时，表明此形参是一个常量。当我们调用此方法时，给常量形参赋一个实参。一旦赋值以后，就只能在方法体内使用此形参，但不能进行重新赋值。</p>
+</li>
+<li>
+<p>static final 用来修饰属性：全局常量</p>
+</li>
+</ol>
+<h2 id="abstract-">七、关键字：abstract-- 抽象的<a class="headerlink" href="#abstract-" title="Permanent link">&para;</a></h2>
+<h3 id="1-abstract">1. abstract 关键字简述<a class="headerlink" href="#1-abstract" title="Permanent link">&para;</a></h3>
+<p>abstract: 抽象的，可以用来修饰：类、方法</p>
+<h3 id="2-abstract">2. abstract 关键字的使用<a class="headerlink" href="#2-abstract" title="Permanent link">&para;</a></h3>
+<h4 id="21-abstract">2.1 abstract 修饰类：抽象类<a class="headerlink" href="#21-abstract" title="Permanent link">&para;</a></h4>
+<ul>
+<li>此类不能实例化</li>
+<li>抽象类中一定有构造器，便于子类实例化时调用（涉及：子类对象实例化的全过程）</li>
+<li>开发中，都会提供抽象类的子类，让子类对象实例化，完成相关的操作 ---&gt; 抽象的使用前提：继承性</li>
+</ul>
+<h4 id="22-abstract">2.2 abstract 修饰方法：抽象方法<a class="headerlink" href="#22-abstract" title="Permanent link">&para;</a></h4>
+<ul>
+<li>抽象方法只方法的声明，没方法体</li>
+<li>包含抽象方法的类，一定是一个抽象类。反之，抽象类中可以没有抽象方法的。</li>
+<li>若子类重写了父类中的所的抽象方法后，此子类方可实例化</li>
+<li>若子类没重写父类中的所的抽象方法，则此子类也是一个抽象类，需要使用 abstract 修饰</li>
+</ul>
+<p><strong>注意点：</strong></p>
+<ul>
+<li>abstract 不能用来修饰：属性、构造器等结构</li>
+<li>abstract 不能用来修饰私有方法、静态方法（静态方法不能被重写，抽象方法不能调用）、final 的方法、final 的类</li>
+</ul>
+<p><strong>abstract 的应用举例：</strong></p>
+<p><strong>举例一</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">abstract</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Vehicle</span><span class="p">{</span><span class="c1">//抽象类</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kd">public</span><span class="w"> </span><span class="kd">abstract</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">calcFuelEfficiency</span><span class="p">();</span><span class="c1">//计算燃料效率的抽象方法</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="kd">public</span><span class="w"> </span><span class="kd">abstract</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">calcTripDistance</span><span class="p">();</span><span class="c1">//计算行驶距离的抽象方法</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="p">}</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Truck</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Vehiclel</span><span class="p">{</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="kd">public</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">calcFuelEfficiency</span><span class="p">(</span><span class="w"> </span><span class="p">){</span><span class="c1">//写出计算卡车的燃料效率的具体方法}</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="kd">public</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">calcTripDistance</span><span class="p">(</span><span class="w"> </span><span class="p">){</span><span class="c1">//写出计算卡车行驶距离的具体方法}</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="p">}</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">River</span><span class="w"> </span><span class="n">Barge</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Vehicle</span><span class="p">{</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="kd">public</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">calcFuelEfficiency</span><span class="p">(</span><span class="w"> </span><span class="p">){</span><span class="c1">//写出计算驳船的燃料效率的具体方法}</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="kd">public</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">calcTripDistance</span><span class="p">(</span><span class="w"> </span><span class="p">){</span><span class="c1">//写出计算驳船行驶距离的具体方法}</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>举例二</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kd">abstract</span><span class="w"> </span><span class="kd">class</span> <span class="nc">GeometricObject</span><span class="p">{</span><span class="c1">//抽象类</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kd">public</span><span class="w"> </span><span class="kd">abstract</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">findArea</span><span class="p">();</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="p">}</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="kd">class</span> <span class="nc">Circle</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">GeometricObject</span><span class="p">{</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="kd">private</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">radius</span><span class="p">;</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="kd">public</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="nf">findArea</span><span class="p">(){</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mf">3.14</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">radius</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">radius</span><span class="p">;</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="p">};</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>举例三</strong>：</p>
+<p>IO 流中设计到的抽象类：InputStream/OutputStream / Reader /Writer。在其内部定义了抽象的 read()、write() 方法。</p>
+<h3 id="3_1">3. 模板方法的设计模式<a class="headerlink" href="#3_1" title="Permanent link">&para;</a></h3>
+<h4 id="31_1">3.1 解决的问题<a class="headerlink" href="#31_1" title="Permanent link">&para;</a></h4>
+<p>在软件开发中实现一个算法时，整体步骤很固定、通用，这些步骤已经在父类中写好了。但是某些部分易变，易变 部分可以抽象出来，供不同子类实现。这就是一种模板模式。</p>
+<h4 id="32_1">3.2 应用举例<a class="headerlink" href="#32_1" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kd">abstract</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Template</span><span class="p">{</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="c1">//计算某段代码执行所需要花费的时间</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">spendTime</span><span class="p">(){</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">        </span><span class="kt">long</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">currentTimeMillis</span><span class="p">();</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">code</span><span class="p">();</span><span class="c1">//不确定的部分、易变的部分</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">        </span><span class="kt">long</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">currentTimeMillis</span><span class="p">();</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;花费的时间为：&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="p">));</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">abstract</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">code</span><span class="p">();</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="p">}</span>
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="kd">class</span> <span class="nc">SubTemplate</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Template</span><span class="p">{</span>
+<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>
+<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="w">    </span><span class="nd">@Override</span>
+<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">code</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a>
+<a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="w">        </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">1000</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+<a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="w">            </span><span class="kt">boolean</span><span class="w"> </span><span class="n">isFlag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a><span class="w">            </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="n">j</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="na">sqrt</span><span class="p">(</span><span class="n">i</span><span class="p">);</span><span class="n">j</span><span class="o">++</span><span class="p">){</span>
+<a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a>
+<a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a><span class="w">                </span><span class="k">if</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">){</span>
+<a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a><span class="w">                    </span><span class="n">isFlag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a><span class="w">                    </span><span class="k">break</span><span class="p">;</span>
+<a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a><span class="w">                </span><span class="p">}</span>
+<a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a><span class="w">            </span><span class="p">}</span>
+<a id="__codelineno-4-34" name="__codelineno-4-34" href="#__codelineno-4-34"></a><span class="w">            </span><span class="k">if</span><span class="p">(</span><span class="n">isFlag</span><span class="p">){</span>
+<a id="__codelineno-4-35" name="__codelineno-4-35" href="#__codelineno-4-35"></a><span class="w">                </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+<a id="__codelineno-4-36" name="__codelineno-4-36" href="#__codelineno-4-36"></a><span class="w">            </span><span class="p">}</span>
+<a id="__codelineno-4-37" name="__codelineno-4-37" href="#__codelineno-4-37"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-4-38" name="__codelineno-4-38" href="#__codelineno-4-38"></a>
+<a id="__codelineno-4-39" name="__codelineno-4-39" href="#__codelineno-4-39"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-4-40" name="__codelineno-4-40" href="#__codelineno-4-40"></a>
+<a id="__codelineno-4-41" name="__codelineno-4-41" href="#__codelineno-4-41"></a><span class="p">}</span>
+</code></pre></div>
+<h4 id="33">3.3 应用场景<a class="headerlink" href="#33" title="Permanent link">&para;</a></h4>
+<p>模板方法设计模式是编程中经常用得到的模式。各个框架、类库中都有他的影子，比如常见的有：</p>
+<ul>
+<li>数据库访问的封装</li>
+<li>Junt 单元测试</li>
+<li>JavaWeb 的 Servlet 中关于 doGet/doPost 方法调用</li>
+<li>Hibernate 中模板程序</li>
+<li>Spring 中 JDBCTemlate、 Hibernate Template 等</li>
+</ul>
+<h2 id="interface-">八、关键字：interface-- 接口<a class="headerlink" href="#interface-" title="Permanent link">&para;</a></h2>
+<h3 id="1interface">1.interface 关键字简述<a class="headerlink" href="#1interface" title="Permanent link">&para;</a></h3>
+<ol>
+<li>接口使用 interface 来定义</li>
+<li>Java 中，接口和类是并列的两个结构</li>
+</ol>
+<h3 id="1interface_1">1.interface 关键字使用说明：<a class="headerlink" href="#1interface_1" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>如何定义接口：定义接口中的成员</p>
+</li>
+<li>
+<p>接口中不能定义构造器的！意味着接口不可以实例化</p>
+</li>
+<li>
+<p>Java 开发中，接口通过让类去实现 (implements) 的方式来使用.</p>
+</li>
+<li>
+<p>如果实现类覆盖了接口中的所抽象方法，则此实现类就可以实例化</p>
+</li>
+<li>
+<p>如果实现类没覆盖接口中所的抽象方法，则此实现类仍为一个抽象类</p>
+</li>
+<li>
+<p>Java 类可以实现多个接口 ---&gt; 弥补了 Java 单继承性的局限性</p>
+</li>
+</ol>
+<p>格式：class AA extends BB implements CC,DD,EE</p>
+<ol>
+<li>
+<p>接口与接口之间可以继承，而且可以多继承</p>
+</li>
+<li>
+<p>接口的具体使用，体现多态性</p>
+</li>
+<li>
+<p>接口，实际上可以看做是一种规范</p>
+</li>
+</ol>
+<p><strong>使用举例</strong>：不同的设备通过 USB 口接入电脑</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kd">class</span> <span class="nc">Computer</span><span class="p">{</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">transferData</span><span class="p">(</span><span class="n">USB</span><span class="w"> </span><span class="n">usb</span><span class="p">){</span><span class="c1">//USB usb = new Flash();</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">        </span><span class="n">usb</span><span class="p">.</span><span class="na">start</span><span class="p">();</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;具体传输数据的细节&quot;</span><span class="p">);</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">        </span><span class="n">usb</span><span class="p">.</span><span class="na">stop</span><span class="p">();</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="p">}</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="kd">interface</span> <span class="nc">USB</span><span class="p">{</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="w">    </span><span class="c1">//常量：定义了长、宽、最大最小的传输速度等</span>
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">start</span><span class="p">();</span>
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>
+<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">stop</span><span class="p">();</span>
+<a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>
+<a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a><span class="p">}</span>
+<a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a>
+<a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a><span class="kd">class</span> <span class="nc">Flash</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">USB</span><span class="p">{</span>
+<a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a>
+<a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a><span class="w">    </span><span class="nd">@Override</span>
+<a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">start</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;U盘开启工作&quot;</span><span class="p">);</span>
+<a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-5-29" name="__codelineno-5-29" href="#__codelineno-5-29"></a>
+<a id="__codelineno-5-30" name="__codelineno-5-30" href="#__codelineno-5-30"></a><span class="w">    </span><span class="nd">@Override</span>
+<a id="__codelineno-5-31" name="__codelineno-5-31" href="#__codelineno-5-31"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">stop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-32" name="__codelineno-5-32" href="#__codelineno-5-32"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;U盘结束工作&quot;</span><span class="p">);</span>
+<a id="__codelineno-5-33" name="__codelineno-5-33" href="#__codelineno-5-33"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-5-34" name="__codelineno-5-34" href="#__codelineno-5-34"></a>
+<a id="__codelineno-5-35" name="__codelineno-5-35" href="#__codelineno-5-35"></a><span class="p">}</span>
+<a id="__codelineno-5-36" name="__codelineno-5-36" href="#__codelineno-5-36"></a>
+<a id="__codelineno-5-37" name="__codelineno-5-37" href="#__codelineno-5-37"></a><span class="kd">class</span> <span class="nc">Printer</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">USB</span><span class="p">{</span>
+<a id="__codelineno-5-38" name="__codelineno-5-38" href="#__codelineno-5-38"></a><span class="w">    </span><span class="nd">@Override</span>
+<a id="__codelineno-5-39" name="__codelineno-5-39" href="#__codelineno-5-39"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">start</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-40" name="__codelineno-5-40" href="#__codelineno-5-40"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;打印机开启工作&quot;</span><span class="p">);</span>
+<a id="__codelineno-5-41" name="__codelineno-5-41" href="#__codelineno-5-41"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-5-42" name="__codelineno-5-42" href="#__codelineno-5-42"></a>
+<a id="__codelineno-5-43" name="__codelineno-5-43" href="#__codelineno-5-43"></a><span class="w">    </span><span class="nd">@Override</span>
+<a id="__codelineno-5-44" name="__codelineno-5-44" href="#__codelineno-5-44"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">stop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-45" name="__codelineno-5-45" href="#__codelineno-5-45"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;打印机结束工作&quot;</span><span class="p">);</span>
+<a id="__codelineno-5-46" name="__codelineno-5-46" href="#__codelineno-5-46"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-5-47" name="__codelineno-5-47" href="#__codelineno-5-47"></a>
+<a id="__codelineno-5-48" name="__codelineno-5-48" href="#__codelineno-5-48"></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>使用总结</strong></p>
+<ol>
+<li>接口使用上也满足多态性</li>
+<li>接口，实际上就是定义了一种规范</li>
+<li>开发中，体会面向接口编程！</li>
+</ol>
+<h3 id="2_1">2. 面向接口编程的思想<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h3>
+<p><img alt="img" src="../imgs/20200402164549.png" /></p>
+<p>面向接口编程：我们在应用程序中，调用的结构都是 JDBC 中定义的接口，不会出现具体某一个 数据库厂商的 API。</p>
+<h3 id="3-java8">3. Java8 中关于接口的新规范<a class="headerlink" href="#3-java8" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>JDK7 及以前：只能定义全局常量和抽象方法</p>
+</li>
+<li>
+<p>全局常量：public static final 的，书写时可以省略不写</p>
+</li>
+<li>
+<p>抽象方法：public abstract 的</p>
+</li>
+<li>
+<p>JDK8：除了定义全局常量和抽象方法之外，还可以定义静态方法、默认方法</p>
+</li>
+<li>
+<p>Java8 中，可以为接口添加静态方法和默认方法。从技术角度来说，这是完全合法的，只是它看起来违反了接口作为一个抽象定义的理念。</p>
+</li>
+<li>
+<p>静态方法：使用 static 关键字修饰。</p>
+<p>可以通过接口直接调用静态方法，并执行其方法体。我们经常在相互一起使用的类中使用静态方法。你可以在标准库中找到像 Collection/co| ections 或者 Path/ Paths 这样成对的接口和类。</p>
+</li>
+<li>
+<p>默认方法：默认方法使用 default 关键字修饰。</p>
+</li>
+<li>
+<p>可以通过实现类对象来调用。我们在已有的接口中提供新方法的同时，还保持了与旧版本代码的兼容性比如：java8API 中对 Collection、List、 Comparator 等接口提供了丰富的默认方法。</p>
+</li>
+</ul>
+<p><strong>JDK 8 后接口使用总结</strong></p>
+<ul>
+<li>
+<p>知识点 1：接口中定义的静态方法，只能通过接口来调用。</p>
+</li>
+<li>
+<p>知识点 2：通过实现类的对象，可以调用接口中的默认方法。</p>
+</li>
+</ul>
+<p>如果实现类重写了接口中的默认方法，调用时，仍然调用的是重写以后的方法</p>
+<ul>
+<li>
+<p>知识点 3：如果子类 (或实现类) 继承的父类和实现的接口中声明了同名同参数的默认方法，那么子类在没重写此方法的情况下，默认调用的是父类中的同名同参数的方法。&rarr;类优先原则</p>
+</li>
+<li>
+<p>知识点 4：如果实现类实现了多个接口，而这多个接口中定义了同名同参数的默认方法，</p>
+</li>
+</ul>
+<p>那么在实现类没重写此方法的情况下，报错。&rarr; 接口冲突。</p>
+<p>这就需要我们必须在实现类中重写此方法</p>
+<ul>
+<li>知识点 5：如何在子类 (或实现类) 的方法中调用父类、接口中被重写的方法</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">myMethod</span><span class="p">(){</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">        </span><span class="n">method3</span><span class="p">();</span><span class="c1">//调用自己定义的重写的方法</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">        </span><span class="kd">super</span><span class="p">.</span><span class="na">method3</span><span class="p">();</span><span class="c1">//调用的是父类中声明的</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">        </span><span class="c1">//调用接口中的默认方法</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">        </span><span class="n">CompareA</span><span class="p">.</span><span class="na">super</span><span class="p">.</span><span class="na">method3</span><span class="p">();</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">        </span><span class="n">CompareB</span><span class="p">.</span><span class="na">super</span><span class="p">.</span><span class="na">method3</span><span class="p">();</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="4">4. 面试题：<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
+<p><strong>抽象类和接口的异同？</strong> 相同点：都不能实例化；都可以被继承；都可以包含抽象方法的。</p>
+<p>不同点：</p>
+<p>抽象类：有构造器。接口：没有构造器</p>
+<p>1）把抽象类和接口 (java7,java8,java9) 的定义、内部结构解释说明</p>
+<p>2）类：单继承性 接口：多继承</p>
+<p>类与接口：多实现</p>
+<h3 id="5">5. 代理模式<a class="headerlink" href="#5" title="Permanent link">&para;</a></h3>
+<h4 id="51">5.1. 解决的问题<a class="headerlink" href="#51" title="Permanent link">&para;</a></h4>
+<p>代理模式是 Java 开发中使用较多的一种设计模式。代理设计就是为其他对象提供一种代理以控制对这个对象的访问。</p>
+<p><strong>代码示例</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kd">interface</span> <span class="nc">NetWork</span><span class="p">{</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">browse</span><span class="p">();</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="p">}</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="c1">//被代理类</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="kd">class</span> <span class="nc">Server</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">NetWork</span><span class="p">{</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">    </span><span class="nd">@Override</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">browse</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;真实的服务器访问网络&quot;</span><span class="p">);</span>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="p">}</span>
+<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="c1">//代理类</span>
+<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a><span class="kd">class</span> <span class="nc">ProxyServer</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">NetWork</span><span class="p">{</span>
+<a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>
+<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">NetWork</span><span class="w"> </span><span class="n">work</span><span class="p">;</span>
+<a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>
+<a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">ProxyServer</span><span class="p">(</span><span class="n">NetWork</span><span class="w"> </span><span class="n">work</span><span class="p">){</span>
+<a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">work</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">work</span><span class="p">;</span>
+<a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a>
+<a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a>
+<a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">check</span><span class="p">(){</span>
+<a id="__codelineno-7-27" name="__codelineno-7-27" href="#__codelineno-7-27"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;联网之前的检查工作&quot;</span><span class="p">);</span>
+<a id="__codelineno-7-28" name="__codelineno-7-28" href="#__codelineno-7-28"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-7-29" name="__codelineno-7-29" href="#__codelineno-7-29"></a>
+<a id="__codelineno-7-30" name="__codelineno-7-30" href="#__codelineno-7-30"></a><span class="w">    </span><span class="nd">@Override</span>
+<a id="__codelineno-7-31" name="__codelineno-7-31" href="#__codelineno-7-31"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">browse</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-32" name="__codelineno-7-32" href="#__codelineno-7-32"></a><span class="w">        </span><span class="n">check</span><span class="p">();</span>
+<a id="__codelineno-7-33" name="__codelineno-7-33" href="#__codelineno-7-33"></a>
+<a id="__codelineno-7-34" name="__codelineno-7-34" href="#__codelineno-7-34"></a><span class="w">        </span><span class="n">work</span><span class="p">.</span><span class="na">browse</span><span class="p">();</span>
+<a id="__codelineno-7-35" name="__codelineno-7-35" href="#__codelineno-7-35"></a>
+<a id="__codelineno-7-36" name="__codelineno-7-36" href="#__codelineno-7-36"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-7-37" name="__codelineno-7-37" href="#__codelineno-7-37"></a>
+<a id="__codelineno-7-38" name="__codelineno-7-38" href="#__codelineno-7-38"></a><span class="p">}</span>
+</code></pre></div>
+<h4 id="52">5.2 应用场景<a class="headerlink" href="#52" title="Permanent link">&para;</a></h4>
+<ul>
+<li>安全代理：屏蔽对真实角色的直接访问</li>
+<li>远程代理：通过代理类处理远程方法调用（RM）</li>
+<li>延迟加载：先加载轻量级的代理对象，真正需要再加载真实对象 比如你要开发一个大文档查看软件，大文档中有大的图片，有可能一个图片有 100MB，在打开文件时，不可能将所有的图片都显示出来，这样就可以使用代理模式，当需要查看图片时，用 proxy 来进行大图片的打开。</li>
+</ul>
+<h4 id="53">5.3 分类<a class="headerlink" href="#53" title="Permanent link">&para;</a></h4>
+<ul>
+<li>静态代理（静态定义代理类）</li>
+<li>动态代理（动态生成代理类）JDK 自带的动态代理，需要反射等知识</li>
+</ul>
+<h3 id="6">6. 工厂的设计模式<a class="headerlink" href="#6" title="Permanent link">&para;</a></h3>
+<p><strong>解决的问题</strong></p>
+<p>实现了创建者与调用者的分离，即将创建对象的具体过程屏蔽隔离起来，达到提高灵活性的目的。</p>
+<p><strong>具体模式：</strong></p>
+<ul>
+<li>简单工厂模式：用来生产同一等级结构中的任意产品。（对于增加新的产品，需要修改已有代码）</li>
+<li>工厂方法模式：用来生产同一等级结构中的固定产品。（支持增加任意产品)</li>
+<li>抽象工厂模式：用来生产不同产品族的全部产品。（对于增加新的产品，无能为力；支持增加产品族)</li>
+</ul>
+<p>全文完</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            回到页面顶部
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <!-- Copyright and theme information -->
+<div class="md-copyright">
+  
+  
+  Copyright © 2019-2023 <a href="https://kirklin.cn" target="_blank" rel="noopener">Kirk Lin</a> All Rights Reserved. <a href="https://kirklin.cn" target="_blank" rel="noopener">Kirk Lin</a> 版权所有
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+      
+      
+    
+    <a href="https://kirklin.github.io/PrivateNotes" target="_blank" rel="noopener" title="kirklin.github.io" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.annotate", "content.tooltips", "navigation.indexes", "navigation.instant", "navigation.sections", "navigation.tabs", "navigation.top", "navigation.tracking", "search.highlight", "search.suggest"], "search": "../../../assets/javascripts/workers/search.e5c33ebb.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.ba449ae6.min.js"></script>
+      
+        <script src="../../../CustomTheme/js/main.js"></script>
+      
+    
+  </body>
+</html>
